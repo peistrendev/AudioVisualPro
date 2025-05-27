@@ -12,18 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('clientes', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->string('documento')->unique();
-            $table->string("tipo_documento");
+            $table->id()->autoIncrement()->unique();   
             $table->string('nombre');
-            $table->string('apellido');
-            $table->string('email')->unique();
-            $table->string('telefono');
+            $table->char('tipo_documento');
+            $table->char('documento');
+            $table->char('email')->unique();
+            $table->char('telefono');
             $table->string('direccion')->nullable();
-            $table->string('empresa')->nullable();
-            $table->string('cargo')->nullable();
-            $table->string('foto')->nullable();
-            $table->tinyInteger('estado')->default(1);
             $table->timestamps();
         });
     }
