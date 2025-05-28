@@ -1,5 +1,5 @@
 <x-app-layout>
-    <h6 class="font-bold text-xl mb-4">Empleados </h6>
+    <h6 class="font-bold text-xl mb-4">Empleados uwu </h6>
     <div class="mb-4">
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Crear
