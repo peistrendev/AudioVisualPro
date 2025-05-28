@@ -3,7 +3,7 @@
 
             <h6 class="font-bold text-xl mb-4 ">Clientes</h6>
             <div class="mb-4">
-             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Crear
                 </button>
             </div>
@@ -37,10 +37,10 @@
               <form action="{{$client->id}}" method="POST" class="inline">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700">X</button>
+                <button type="submit" class="bg-red-500 text-white font-bold py-2 px-3 rounded hover:bg-red-700"><i class="fa-solid fa-trash"></i></button>
                 </form>
               
-                 <a href="{{$client->id}}/edit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">edit</a>
+                 <a href="{{$client->id}}/edit" class="bg-blue-500 text-white font-bold py-2 px-3 rounded hover:bg-blue-700"><i class="fa-solid fa-pencil"></i></a>
                 
             </td>
             </tr>
@@ -97,13 +97,10 @@
   </div>
   
    
-  <center><button type="submit" class="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar</button></center>
+  <center><button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><i class="fa-solid fa-floppy-disk"></i>  Registrar</button></center>
 </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        
-      </div>
+    
     </div>
   </div>
 </div>

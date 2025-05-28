@@ -38,9 +38,9 @@
                         <form action="{{ $proyecto->id }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700">X</button>
+                            <button type="submit" class="bg-red-500 text-white font-bold py-2 px-2 rounded hover:bg-red-700"><i class="fa-solid fa-trash"></i></button>
                         </form>
-                        <a href="{{ $proyecto->id }}/edit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">Edit</a>
+                        <a href="{{ $proyecto->id }}/edit" class="bg-blue-500 text-white font-bold py-2 px-2 rounded hover:bg-blue-700"><i class="fa-solid fa-pencil"></i></a>
                     </td>
                 </tr>
             @endforeach
@@ -90,12 +90,12 @@
                             <input type="text" name="responsable" class="form-control" placeholder="Responsable" required />
                         </div>
                         <center>
-                            <button type="submit" class="btn btn-success">Registrar</button>
+                            <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i>  Registrar</button>
                         </center>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    
                 </div>
             </div>
         </div>

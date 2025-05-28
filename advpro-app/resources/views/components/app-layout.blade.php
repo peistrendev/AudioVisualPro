@@ -8,6 +8,8 @@
       <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <!--ICONOS FONTAWESOME-->
+    <script src="https://kit.fontawesome.com/c7867ac386.js" crossorigin="anonymous"></script>
     
     <title>ADVPRO</title>
    </head>
@@ -31,7 +33,9 @@
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
                         <img src="{{asset('src/user.svg')}}" alt="">
                     </div>
-                    <a href="" class="self-center hover:text-blue-600 ">Personal</a>
+                    <a href="{{ url('staff/panel') }}" class="self-center {{ Request::is('staff/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
+                        Personal
+                    </a>
                 </li>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
@@ -53,7 +57,7 @@
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
                         <img src="{{asset('src/bookmark-square.svg')}}" alt="">
                     </div>
-                     <a href="{{ url('proyectos/panel') }}" class="self-center {{ Request::is('contratos/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
+                     <a href="{{ url('proyectos/panel') }}" class="self-center {{ Request::is('proyectos/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
                         Proyectos
                     </a>
                 </li>

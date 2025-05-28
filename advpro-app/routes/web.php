@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ContratosController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\StaffController;
 
 // Route::get('/', function () {
 //     return view('/components/app-layout');
@@ -30,3 +31,10 @@ Route::post('/proyectos/save', [ProyectoController::class, 'store']);
 Route::get('/proyectos/{proyecto}/edit', [ProyectoController::class, 'edit']);
 Route::put('/proyectos/{proyecto}', [ProyectoController::class, 'update']);
 Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy']);
+
+// Rutas para Empleados (Staff)
+Route::get('/staff/panel', [StaffController::class, 'index']);
+Route::post('/staff/save', [StaffController::class, 'store']);
+Route::get('/staff/{staff}/edit', [StaffController::class, 'edit']);
+Route::put('/staff/{staff}', [StaffController::class, 'update']);
+Route::delete('/staff/{staff}', [StaffController::class, 'destroy']);
