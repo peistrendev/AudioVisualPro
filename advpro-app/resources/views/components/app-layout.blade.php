@@ -23,9 +23,9 @@
             <ul>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
-                        <img src="{{ asset('src/home.svg') }}" alt="">
+                        <img src="{{asset('src/home.svg')}}" alt="">
                     </div>
-                    <a href="" class="self-center hover:text-blue-600 ">Inicio</a>
+                    <a href="{{ url('inicio/dashboard') }}" class="self-center {{ Request::is('inicio/dashboard') ? 'text-blue-600' : 'hover:text-blue-600' }}">Inicio</a>
                 </li>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">

@@ -33,7 +33,7 @@
             <td class=" px-4 py-2">{{$client->telefono}}</td>
             <td class=" px-4 py-2">{{$client->direccion}}</td>
           
-            <td class="mt-4 px-2 py-1">
+            <td>
               <form action="{{$client->id}}" method="POST" class="inline">
                 @csrf
                 @method('DELETE')
