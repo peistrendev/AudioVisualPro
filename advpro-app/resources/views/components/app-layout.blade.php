@@ -49,6 +49,15 @@
                         Contratos
                     </a>
                 </li>
+                 <li class="flex mb-8">
+                    <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
+                        <img src="{{asset('src/bookmark-square.svg')}}" alt="">
+                    </div>
+                     <a href="{{ url('proyectos/panel') }}" class="self-center {{ Request::is('contratos/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
+                        Proyectos
+                    </a>
+                </li>
+            </ul>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
                         <img src="{{asset('src/archive-box.svg')}}" alt="">
