@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ContratosController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+// Route::get('/', function () {
+//     return view('/components/app-layout');
+// });
 
 
 //Rutas para Clientes
@@ -18,3 +19,7 @@ Route::delete('/clientes/{cliente}', [ClientesController::class, 'destroy']);
 
 //Rutas para Contratos
 Route::get('/contratos/panel',[ContratosController::class, 'index']);
+
+//rutas para Dashboard
+Route::get('/', [DashboardController::class, 'index']);
+Route::get('/inicio/dashboard', [DashboardController::class, 'index']);
