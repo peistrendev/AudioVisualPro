@@ -23,19 +23,19 @@
             <ul>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
-                        <img src="src/home.svg" alt="">
+                        <img src="{{asset('src/home.svg')}}" alt="">
                     </div>
                     <a href="{{ url('inicio/dashboard') }}" class="self-center {{ Request::is('inicio/dashboard') ? 'text-blue-600' : 'hover:text-blue-600' }}">Inicio</a>
                 </li>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
-                        <img src="src/user.svg" alt="">
+                        <img src="{{asset('src/user.svg')}}" alt="">
                     </div>
                     <a href="" class="self-center hover:text-blue-600 ">Personal</a>
                 </li>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
-                        <img src="src/users.svg" alt="">
+                        <img src="{{asset('src/users.svg')}}" alt="">
                     </div>
                    <a href="{{ url('clientes/panel') }}" class="self-center {{ Request::is('clientes/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
                         Clientes
@@ -43,7 +43,7 @@
                 </li>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
-                        <img src="src/clipboard-document-check.svg" alt="">
+                        <img src="{{asset('src/clipboard-document-check.svg')}}" alt="">
                     </div>
                      <a href="{{ url('contratos/panel') }}" class="self-center {{ Request::is('contratos/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
                         Contratos
@@ -51,7 +51,7 @@
                 </li>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
-                        <img src="src/archive-box.svg" alt="">
+                        <img src="{{asset('src/archive-box.svg')}}" alt="">
                     </div>
                     <a href="" class="self-center hover:text-blue-600 ">Inventario</a>
                 </li>
@@ -60,13 +60,13 @@
             <ul>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
-                        <img src="src/book-open.svg" alt="">
+                        <img src="{{asset('src/book-open.svg')}}" alt="">
                     </div>
                     <a href="" class="self-center hover:text-blue-600 ">Libro Diario</a>
                 </li>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
-                        <img src="src/bookmark-square.svg" alt="">
+                        <img src="{{asset('src/bookmark-square.svg')}}" alt="">
                     </div>
                     <a href="" class="self-center hover:text-blue-600 ">Libro Mayor</a>
                 </li>
