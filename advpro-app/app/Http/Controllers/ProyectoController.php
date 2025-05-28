@@ -32,6 +32,7 @@ class ProyectoController extends Controller
 
     public function edit($proyecto)
     {
+         $proyecto = Proyecto::find($proyecto);
         return view('proyectos.edit', compact('proyecto'));
     }
 
@@ -61,6 +62,7 @@ class ProyectoController extends Controller
     
     public function destroy($proyecto)
     {
+        $proyecto = Proyecto::find($proyecto);
         $proyecto->delete();
         return redirect('/proyectos/panel');
     }

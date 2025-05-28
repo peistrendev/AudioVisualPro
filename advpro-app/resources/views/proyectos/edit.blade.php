@@ -14,7 +14,7 @@
             </div>
             <div class="w-full relative">
                 <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Descripción</label>
-                <textarea class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded placeholder-gray-400 focus:outline-none" name="descripcion" required>{{ $proyecto->descripcion }}</textarea>
+                <textarea class="block w-full h-11 px-5 py-2.5 border border-grx    ay-300 rounded placeholder-gray-400 focus:outline-none" name="descripcion" required>{{ $proyecto->descripcion }}</textarea>
             </div>
         </div>
 
