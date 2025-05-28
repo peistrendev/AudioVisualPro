@@ -14,15 +14,24 @@
             </div>
             <div class="w-full relative">
                 <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Descripción</label>
-                <textarea class="block w-full h-11 px-5 py-2.5 border border-grx    ay-300 rounded placeholder-gray-400 focus:outline-none" name="descripcion" required>{{ $proyecto->descripcion }}</textarea>
+                <textarea class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded placeholder-gray-400 focus:outline-none" name="descripcion" required>{{ $proyecto->descripcion }}</textarea>
             </div>
         </div>
 
         <div class="flex gap-x-6 mb-6">
+            {{-- Cliente con select --}}
             <div class="w-full relative">
                 <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Cliente</label>
-                <input type="text" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" name="cliente" value="{{ $proyecto->cliente }}" required>
+                <select name="cliente" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full focus:outline-none" required>
+                    <option value="" disabled>Seleccione un cliente</option>
+                    @foreach ($clientes as $cliente)
+                        <option value="{{ $cliente->id }}" {{ $proyecto->cliente == $cliente->id ? 'selected' : '' }}>
+                            {{ $cliente->nombre }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
+
             <div class="w-full relative">
                 <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Fecha de Inicio</label>
                 <input type="date" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" name="fecha_inicio" value="{{ $proyecto->fecha_inicio }}" required>
@@ -41,10 +50,17 @@
         </div>
 
         <div class="flex gap-x-6 mb-6">
+            {{-- Estado con select --}}
             <div class="w-full relative">
                 <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Estado</label>
-                <input type="text" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" name="estado" value="{{ $proyecto->estado }}" required>
+                <select name="estado" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full focus:outline-none" required>
+                    <option value="" disabled>Seleccione un estado</option>
+                    <option value="En espera" {{ $proyecto->estado == 'En espera' ? 'selected' : '' }}>En espera</option>
+                    <option value="En proceso" {{ $proyecto->estado == 'En proceso' ? 'selected' : '' }}>En proceso</option>
+                    <option value="Realizado" {{ $proyecto->estado == 'Realizado' ? 'selected' : '' }}>Realizado</option>
+                </select>
             </div>
+
             <div class="w-full relative">
                 <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Lugar</label>
                 <input type="text" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" name="lugar" value="{{ $proyecto->lugar }}">
