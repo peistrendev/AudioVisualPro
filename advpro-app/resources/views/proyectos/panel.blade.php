@@ -10,16 +10,16 @@
     <table class="table-fixed bg-white border-gray-300">
         <thead class="bg-gray-200">
             <tr>
-                <th class="text-center py-2 text-left">Id</th>
-                <th class="text-center py-2 text-left">Nombre</th>
-                <th class="text-center py-2 text-left">Descripción</th>
-                <th class="text-center py-2 text-left">Cliente</th>
-                <th class="text-center py-2 text-left">Fecha Inicio</th>
-                <th class="text-center py-2 text-left">Fecha Fin</th>
-                <th class="text-center py-2 text-left">Presupuesto</th>
-                <th class="text-center py-2 text-left">Estado</th>
-                <th class="text-center py-2 text-left">Responsable</th>
-                <th class="text-center py-2 text-left">Opciones</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Id</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Nombre</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Descripción</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Cliente</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Fecha Inicio</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Fecha Fin</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Presupuesto</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Estado</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Responsable</th>
+                <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Opciones</th>
             </tr>
         </thead>
         <tbody>

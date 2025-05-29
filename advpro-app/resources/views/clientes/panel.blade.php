@@ -8,16 +8,17 @@
                 </button>
             </div>
 
-        <table class="table-fixed  bg-white  border-gray-300 ">
+        <table class="min-w-full bg-white border border-gray-300">
         <thead class="bg-gray-200 ">
             <tr>
-            <th class=" text-center py-2 text-left">Id</th>
-            <th class=" text-center py-2 text-left">Nombre</th>
-            <th class=" text-center py-2 text-left">Documento</th>
-            <th class=" text-center py-2 text-left">Email</th>
-            <th class=" text-center py-2 text-left">Telefono</th>
-            <th class=" text-center py-2 text-left">Direccion</th>
-            <th class=" text-center py-2 text-left">opc</th>
+            <th class="d-none"></th>
+            <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Nombre</th>
+            <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Documento</th>
+            <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Email</th>
+            <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Telefono</th>
+            <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Direccion</th>
+            <th class="py-2 px-3 text-left border-b border-gray-300 whitespace-nowrap">Opciones</th>
+            
             
             </tr>
         </thead>
@@ -26,22 +27,29 @@
                 
             
             <tr>
-            <td class=" px-4 py-2">{{$client->id}}</td>
+            <td class=" d-none px-4 py-2">{{$client->id}}</td>
             <td class=" px-4 py-2">{{$client->nombre}}</td>
             <td class=" px-4 py-2">{{$client->tipo_documento}}-{{$client->documento}}</td>
             <td class=" px-4 py-2">{{$client->email}}</td>
             <td class=" px-4 py-2">{{$client->telefono}}</td>
             <td class=" px-4 py-2">{{$client->direccion}}</td>
           
-            <td>
-              <form action="{{$client->id}}" method="POST" class="inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700">X</button>
+            <td class="px-2 py-2 whitespace-nowrap">
+              <div class="flex items-center justify-start space-x-2">
+                <!-- Botón Eliminar -->
+                <form action="{{$client->id}}" method="POST" class="inline">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="p-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-200">
+                    <img src="{{asset('src/trash.svg')}}" alt="Eliminar" class="w-4 h-4">
+                  </button>
                 </form>
-              
-                 <a href="{{$client->id}}/edit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">edit</a>
                 
+                <!-- Botón Editar -->
+                <a href="{{$client->id}}/edit" class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200">
+                  <img src="{{asset('src/pencil-square.svg')}}" alt="Editar" class="w-4 h-4">
+                </a>
+              </div>
             </td>
             </tr>
             @endforeach

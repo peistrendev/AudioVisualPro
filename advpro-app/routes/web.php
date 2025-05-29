@@ -19,6 +19,10 @@ Route::delete('/clientes/{cliente}', [ClientesController::class, 'destroy']);
 
 //Rutas para Contratos
 Route::get('/contratos/panel',[ContratosController::class, 'index']);
+Route::post('/contratos/save',[ContratosController::class, 'store']);
+Route::get('/contratos/{contrato}/edit',[ContratosController::class, 'edit']);
+Route::put('/contratos/{contrato}',[ContratosController::class, 'update']);
+Route::delete('/contratos/{contrato}',[ContratosController::class, 'destroy']);
 
 //rutas para Dashboard
 Route::get('/', [DashboardController::class, 'index']);
