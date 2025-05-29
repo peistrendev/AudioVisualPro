@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
+use App\Models\Clientes;
 
 class ProyectoController extends Controller
 {
     public function index()
     {
         $proyectos = Proyecto::paginate(7);
-        return view('proyectos.panel', compact('proyectos'));
+        $clientes = Clientes::all();
+        return view('proyectos.panel', compact('proyectos','clientes'));
     }
 
     public function store(Request $request)
@@ -32,15 +34,11 @@ class ProyectoController extends Controller
 
     public function edit($proyecto)
     {
-        return view('proyectos.edit', compact('proyecto'));
+        $proyecto = Proyecto::find($proyecto);
+        $clientes = Clientes::all();
+        return view('proyectos.edit', compact('proyecto','clientes'));
     }
 
-/*
-    public function edit($proyecto)
-{
-    dd(Proyecto::find($proyecto)); // Esto mostrará si Laravel encuentra el registro
-}
-*/
     public function update(Request $request, $proyecto)
     {
         $proyecto = Proyecto::find($proyecto);
@@ -61,6 +59,7 @@ class ProyectoController extends Controller
     
     public function destroy($proyecto)
     {
+        $proyecto = Proyecto::find($proyecto);
         $proyecto->delete();
         return redirect('/proyectos/panel');
     }
