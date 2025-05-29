@@ -1,7 +1,7 @@
 <x-app-layout>
   <h6 class="font-bold text-xl mb-4">Contrato de Servicios</h6>
   <div class="mb-4">
-    <button type="button" onclick="openModal()" class="px-4 py-2 bg-[#462E7C] text-white rounded hover:bg-[#5A3F9D]">
+    <button type="button" onclick="openModal()" class="w-40 h-10 shadow-sm rounded-full bg-indigo-600 hover:bg-indigo-800 transition-all duration-500 text-white text-base font-semibold leading-7">
       Crear Contrato
     </button>
   </div>
