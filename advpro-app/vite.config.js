@@ -11,3 +11,13 @@ export default defineConfig({
         tailwindcss(),
     ],
 });
+
+module.exports = {
+  theme: {
+    extend: {
+      screens: {
+        '1080p': '1080px',
+      }
+    }
+  }
+}
