@@ -129,10 +129,10 @@
                 <label class="inline-flex items-center  text-sm">
                     <select name="tipo_documento" id="tipo_documento" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                       <option value="" selected disabled>-</option>
-                      <option>V</option>
-                      <option>J</option>
-                      <option>E</option>
-                      <option>G</option>
+                      <option value="1">V</option>
+                      <option value="2">J</option>
+                      <option value="3">E</option>
+                      <option value="4">G</option>
                     </select>
                 </label>
                 <label class="inline-flex items-center text-sm">
@@ -161,19 +161,16 @@
               <span class="text-gray-700 dark:text-gray-400">Telefono</span>
               <input type="text" name="telefono"
                 class="block mt-1 w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                placeholder="Juan Luis Guerra"
+                placeholder="0424-0426-0414-0416-0412"
               />
             </label>
                <label class="block mt-2 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Direccion</span>
                 <input type="text" name="direccion"
                   class="block mt-1 w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="Juan Luis Guerra"
+                  placeholder="Cualquier calle, ciudad, estado"
                 />
             </label>
-            <center><button type="submit" class="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar</button></center>
-        
-       
             <footer
               class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800"
             >
@@ -183,7 +180,7 @@
               >
                 Cancel
               </button>
-              <button
+              <button type="submit"
                 class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
               >
                 Accept
