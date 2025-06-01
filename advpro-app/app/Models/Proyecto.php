@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proyecto extends Model
 {
-     protected $table = 'proyectos';
+    protected $table = 'proyectos';
 
     // Agrega la propiedad $fillable con todas las columnas que pueden ser asignadas masivamente
     protected $fillable = [
