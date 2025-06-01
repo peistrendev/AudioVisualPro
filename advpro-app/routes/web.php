@@ -20,6 +20,10 @@ Route::delete('/clientes/{cliente}', [ClientesController::class, 'destroy']);
 
 //Rutas para Contratos
 Route::get('/contratos/panel',[ContratosController::class, 'index']);
+Route::post('/contratos/save',[ContratosController::class, 'store']);
+Route::get('/contratos/{contrato}/edit',[ContratosController::class, 'edit']);
+Route::put('/contratos/{contrato}',[ContratosController::class, 'update']);
+Route::delete('/contratos/{contrato}',[ContratosController::class, 'destroy']);
 
 //rutas para Dashboard
 Route::get('/', [DashboardController::class, 'index']);
@@ -38,3 +42,12 @@ Route::post('/staff/save', [StaffController::class, 'store']);
 Route::get('/staff/{staff}/edit', [StaffController::class, 'edit']);
 Route::put('/staff/{staff}', [StaffController::class, 'update']);
 Route::delete('/staff/{staff}', [StaffController::class, 'destroy']);
+
+//Rutas para login y registro
+Route::get('/login', function () {
+    return view('login.login');
+})->name('login');
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');

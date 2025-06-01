@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Windmill Dashboard</title>
+     {{-- <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    @vite(['resources/css/styles.css']) --}}
     <!-- TAILWIND -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
       <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-    <!--ICONOS FONTAWESOME-->
-    <script src="https://kit.fontawesome.com/c7867ac386.js" crossorigin="anonymous"></script>
     
     <title>ADVPRO</title>
    </head>
@@ -33,9 +35,7 @@
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
                         <img src="{{asset('src/user.svg')}}" alt="">
                     </div>
-                    <a href="{{ url('staff/panel') }}" class="self-center {{ Request::is('staff/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
-                        Personal
-                    </a>
+                    <a href="" class="self-center hover:text-blue-600 ">Personal</a>
                 </li>
                 <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
@@ -44,20 +44,19 @@
                    <a href="{{ url('clientes/panel') }}" class="self-center {{ Request::is('clientes/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
                         Clientes
                     </a>
-                </li>
-                <li class="flex mb-8">
-                    <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
-                        <img src="{{asset('src/clipboard-document-check.svg')}}" alt="">
-                    </div>
-                     <a href="{{ url('contratos/panel') }}" class="self-center {{ Request::is('contratos/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
-                        Contratos
+                  </li>
+                  <li
+                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                  >
+                    <a class="w-full" href="pages/forgot-password.html">
+                      Forgot password
                     </a>
                 </li>
                  <li class="flex mb-8">
                     <div class="bg-white shadow-sm p-2 mr-3 rounded-lg">
                         <img src="{{asset('src/bookmark-square.svg')}}" alt="">
                     </div>
-                     <a href="{{ url('proyectos/panel') }}" class="self-center {{ Request::is('proyectos/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
+                     <a href="{{ url('proyectos/panel') }}" class="self-center {{ Request::is('contratos/panel') ? 'text-blue-600' : 'hover:text-blue-600' }}">
                         Proyectos
                     </a>
                 </li>
@@ -84,23 +83,17 @@
                     <a href="" class="self-center hover:text-blue-600 ">Libro Mayor</a>
                 </li>
             </ul>
-        </div>
-         <!-- Contenido principal -->
-        <div class="flex-grow p-6 ">
-            
-         {{$slot}}
+          </div>
+        </header>
+        <main>
+            <div class="flex-grow p-6 ">
+                
+                {{$slot}}
 
-        </div>
-        
-    <script>
-        // JavaScript para mostrar/ocultar el sidebar
-        const toggleSidebar = document.getElementById('toggleSidebar');
-        const sidebar = document.getElementById('sidebar');
+            </div>
+        </main>
 
-        toggleSidebar.addEventListener('click', () => {
-            sidebar.classList.toggle('hidden');
-        });
-    </script>
-</body>
+      </div>
+    </div>
+  </body>
 </html>
-

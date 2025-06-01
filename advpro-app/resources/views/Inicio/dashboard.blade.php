@@ -1,5 +1,6 @@
 <x-app-layout>
-    <h6 class="font-bold text-xl mb-4">Dashboard</h6>
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+    Dashboard</h2>
 
    
 </x-app-layout>      
