@@ -10,8 +10,5 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
-    build: {
-        manifest: true, // Esto genera el archivo manifest.json
-        outDir: 'public/build', // Asegura que la salida esté en public/build
-    }
 });
+
