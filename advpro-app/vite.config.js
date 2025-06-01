@@ -12,12 +12,3 @@ export default defineConfig({
     ],
 });
 
-module.exports = {
-  theme: {
-    extend: {
-      screens: {
-        '1080p': '1080px',
-      }
-    }
-  }
-}
