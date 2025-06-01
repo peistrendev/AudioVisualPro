@@ -18,13 +18,13 @@
                 <input type="email" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full"
                        name="email" value="{{$staff->email}}" required="">
             </div>
-        </div>
+        </div> 
 
         <div class="flex gap-x-6 mb-6">
             <div class="w-full relative">
                 <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Tipo Documento</label>
                 <select name="tipo_documento" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full" required>
-                    <option value="{{$staff->tipo_documento}}" disabled selected>{{$staff->tipo_documento}}</option>
+                    <option value="{{$staff->tipo_documento}}" >{{$staff->tipo_documento}}</option>
                     <option value="J">J</option>
                     <option value="V">V</option>
                     <option value="E">E</option>

@@ -31,7 +31,7 @@
     </svg>
   </label>
   <select id="tipo_documento" name="tipo_documento" class="block w-full h-11 px-5 py-2.5 bg-white leading-7 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full focus:outline-none" required>
-    <option value="{{$cliente->tipo_documento}}" disabled selected>{{$cliente->tipo_documento}}</option>
+    <option value="{{$cliente->tipo_documento}}" >{{$cliente->tipo_documento}}</option>
     <option value="J">J</option>
     <option value="V">V</option>
     <option value="E">E</option>
