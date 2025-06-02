@@ -2,7 +2,7 @@
 
     <h6 class="font-bold text-xl mb-4">Proyectos</h6>
     <div class="mb-4">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Crear
         </button>
     </div>
@@ -90,13 +90,11 @@
                             <input type="text" name="responsable" class="form-control" placeholder="Responsable" required />
                         </div>
                         <center>
-                            <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i>  Registrar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i>  Registrar</button>
                         </center>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    
-                </div>
+              
             </div>
         </div>
     </div>
