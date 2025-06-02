@@ -35,6 +35,9 @@ Route::get('/proyectos/{proyecto}/edit', [ProyectoController::class, 'edit']);
 Route::put('/proyectos/{proyecto}', [ProyectoController::class, 'update']);
 Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy']);
 
+//Rutas para Equipos
+
+
 //Rutas para login y registro
 Route::get('/login', function () {
     return view('login.login');
