@@ -168,10 +168,12 @@
                 <span class="ml-4">Proyectos</span>
               </a>
             </li>
+
+            
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="modals.html"
+                href="{{ url('equipos/panel') }}"
               >
                 <svg
                   class="w-5 h-5"
@@ -187,13 +189,15 @@
                     d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
                   ></path>
                 </svg>
-                <span class="ml-4">Invetario</span>
+                <span class="ml-4">Inventario</span>
               </a>
             </li>
+
+
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="tables.html"
+                href="{{ url('equipos/panel') }}"
               >
                 <svg
                   class="w-5 h-5"
