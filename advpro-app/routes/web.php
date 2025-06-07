@@ -40,9 +40,8 @@ Route::put('/equipos/{equipo}', [EquipoController::class, 'update']);
 Route::delete('/equipos/{equipo}', [EquipoController::class, 'destroy']);
 
 // --- Rutas para login y registro ---
-Route::get('/login', function () {
-    return view('login.login');
-})->name('login');
+Route::view('/login', 'login.login')->name('login');
+Route::view('/register', 'login.register')->name('register');
 
 Route::get('/welcome', function () {
     return view('welcome');

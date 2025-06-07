@@ -38,7 +38,12 @@ class ClienteController extends Controller
 
         return $request->wantsJson()
             ? response()->json(['message' => 'Cliente creado', 'data' => $cliente], 201)
-            : redirect('/clientes/panel')->with('success', 'Cliente creado');
+            : redirect('/clientes/panel')->with('alert', [
+                                                        'type' => 'success',
+                                                        'title' => '¡Éxito!',
+                                                        'message' => 'Cliente creado correctamente',
+                                                        'button' => 'Aceptar'
+                                                    ]);
     }
 
     /**

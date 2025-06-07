@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Windmill Dashboard</title>
+    @vite(['resources/js/app.js'])
      {{-- <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     @vite(['resources/css/styles.css']) --}}
@@ -852,5 +853,59 @@
 
       </div>
     </div>
+
+          @if(session('alert'))
+          <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                  const alert = @json(session('alert'));
+                  Swal.fire({
+                      icon: alert.type,
+                      title: alert.title,
+                      text: alert.message,
+                      confirmButtonText: alert.button,
+                      confirmButtonColor: '#3085d6'
+                  });
+              });
+          
+          @endif
+       
+            document.addEventListener('DOMContentLoaded', function() {
+                @if(session('swal'))
+                    Swal.fire(@json(session('swal')));
+                @endif
+            });
+       
+        document.addEventListener('DOMContentLoaded', function() {
+            // Para mensajes de éxito
+            @if(session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            @endif
+
+            // Para mensajes de error
+            @if(session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: '{{ session('error') }}',
+                    showConfirmButton: true
+                });
+            @endif
+
+            // Para errores de validación
+            @if($errors->any()))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Errores de validación',
+                    html: `{!! implode('<br>', $errors->all()) !!}`,
+                    showConfirmButton: true
+                });
+            @endif
+        });
+    </script>
   </body>
 </html>
