@@ -3,21 +3,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\cargo;
 use Illuminate\Http\Request;
-use App\Models\Cliente;
-
-class ClienteController extends Controller
+use App\Models\Staff;
+class PersonalController extends Controller
 {
     /**
      * Mostrar todos los clientes (Web y API)
      */
     public function index(Request $request)
     {
-        $clientes = Cliente::paginate(10);
+
+        $staff = staff::paginate(10);
 
         return $request->wantsJson()
-            ? response()->json($clientes, 200)
-            : view('clientes.panel', compact('clientes'));
+            ? response()->json($staff, 200)
+            : view('personal.panel', compact('staff'));
+
     }
 
     /**
@@ -32,9 +34,12 @@ class ClienteController extends Controller
             'email' => 'nullable|email|max:255',
             'telefono' => 'nullable|string|max:20',
             'direccion' => 'nullable|string|max:500',
+            'estado' => 'string|in:Activo,Desactivo',
+            'cargo' => 'required|string'
+
         ]);
 
-        $cliente = Cliente::create($validatedData);
+        $cliente = Staff::create($validatedData);
 
         return $request->wantsJson()
             ? response()->json(['message' => 'Cliente creado', 'data' => $cliente], 201)
@@ -49,7 +54,7 @@ class ClienteController extends Controller
     /**
      * Mostrar un cliente específico (Web y API)
      */
-    public function show(Cliente $cliente, Request $request)
+    public function show(Staff $cliente, Request $request)
     {
         return $request->wantsJson()
             ? response()->json($cliente, 200)
@@ -59,7 +64,7 @@ class ClienteController extends Controller
     /**
      * Editar cliente (Web y API)
      */
-    public function edit(Cliente $cliente, Request $request)
+    public function edit(Staff $cliente, Request $request)
     {
         return $request->wantsJson()
             ? response()->json($cliente, 200)
@@ -69,7 +74,7 @@ class ClienteController extends Controller
     /**
      * Actualizar cliente (Web y API)
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, Staff $cliente)
     {
         $validatedData = $request->validate([
             'nombre' => 'sometimes|string|max:255',
@@ -90,7 +95,7 @@ class ClienteController extends Controller
     /**
      * Eliminar cliente (Web y API)
      */
-    public function destroy(Cliente $cliente, Request $request)
+    public function destroy(Staff $cliente, Request $request)
     {
         $cliente->delete();
 

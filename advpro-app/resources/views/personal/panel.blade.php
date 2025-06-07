@@ -1,82 +1,91 @@
 <x-app-layout>
 
-  
-       
-            <h2 class="mb-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Clientes</h2>
-            <div class="mb-4">
-              <button
-                @click="openModal"
-                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Crear Cliente
-              </button>
-            </div>
+    <h2 class="mb-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Personal Administrativo
+    </h2>
 
-
-
-
+    <div class="mb-4">
+        <button
+            @click="openModal"
+            class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            Nuevo Personal
+        </button>
+    </div>
 
     <div class="w-full rounded-lg shadow-xs overflow-x-auto lg:overflow-visible">
-      <div class="w-full rounded-lg shadow-xs overflow-x-auto xl:overflow-visible">
-        <table class="w-full whitespace-nowrap min-w-[800px] xl:min-w-full xl:whitespace-normal">
-          <thead>
-            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-              <th class="px-4 py-3 w-1/6">Nombre</th>
-              <th class="px-4 py-3 w-1/6">Documento</th>
-              <th class="px-4 py-3 w-1/6">Email</th>
-              <th class="px-4 py-3 w-1/6">Telefono</th>
-              <th class="px-4 py-3 w-1/3">Direccion</th>
-              <th class="px-4 py-3 w-1/12">Opciones</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-            @foreach ($clientes as $client)
-            <tr class="text-gray-700 dark:text-gray-400">
-              <td class="px-4 py-3">
-                <div class="flex items-center text-sm">
-                  <div>
-                    <p class="font-semibold truncate">{{$client->nombre}}</p>
-                  </div>
-                </div>
-              </td>
-              <td class="px-4 py-3 text-sm truncate">
-                {{$client->tipo_documento}}-{{$client->documento}}
-              </td>
-              <td class="px-4 py-3 text-sm">
-                <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                  {{$client->email}}
-                </span>
-              </td>
-              <td class="px-4 py-3 text-sm truncate">
-                {{$client->telefono}}
-              </td>
-              <td class="px-4 py-3 text-sm break-words">
-                {{$client->direccion}}
-              </td>
-              <td class="px-4 py-3">
-                <div class="flex items-center space-x-4 text-sm">
-                  <a href="{{$client->id}}/edit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                    aria-label="Edit">
-                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                    </svg>
-                  </a>
-                  <form action="{{$client->id}}" method="POST" class="inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
-                      <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                      </svg>
-                    </button>
-                  </form>
-                </div>
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+        <div class="w-full rounded-lg shadow-xs overflow-x-auto xl:overflow-visible">
+            <table class="w-full whitespace-nowrap min-w-[800px] xl:min-w-full xl:whitespace-normal">
+                <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-4 py-3 w-1/6">NOMBRE</th>
+                        <th class="px-4 py-3 w-1/6">DOCUMENTO</th>
+                        <th class="px-4 py-3 w-1/6">EMAIL</th>
+                        <th class="px-4 py-3 w-1/6">TELEFONO</th>
+                        <th class="px-4 py-3 w-1/6">DIRECCION</th>
+                        <th class="px-4 py-3 w-1/6">CARGO</th>
+                        <th class="px-4 py-3 w-1/6">ESTADO</th>
+                        <th class="px-4 py-3 w-1/12">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    @foreach ($staff as $personal)
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td class="px-4 py-3">
+                            <div class="flex items-center text-sm">
+                                <div>
+                                    <p class="font-semibold truncate">{{ $personal->nombre }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-sm truncate">
+                          {{$personal->tipo_documento}}-{{$personal->documento}}
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                          <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            {{$personal->email}}
+                          </span>
+                        </td>
+                        <td class="px-4 py-3 text-sm truncate">
+                          {{$personal->telefono}}
+                        </td>
+                        <td class="px-4 py-3 text-sm break-words">
+                          {{$personal->direccion}}
+                        </td>
+                        <td class="px-4 py-3 text-sm break-words">
+                            <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-blue-100">
+                            {{$personal->cargo}}
+                          </span>
+                        </td>
+                        <td class="px-4 py-3 text-sm">                
+                            @if ($personal->estado == "Activo")
+                               <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-700 dark:text-orange-100">
+                                  Activo
+                               </span>
+                            @else
+                                <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+                                  Desactivo
+                                </span>
+                            @endif
+                        </td>
+                        <td class="px-4 py-3">
+                          <div class="flex items-center space-x-4 text-sm">
+                            <a href="{{$personal->id}}/edit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                              aria-label="Edit">
+                              <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                              </svg>
+                            </a>                            
+                          </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
       <!-- Paginación (mantener igual) -->
         <div
           class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
@@ -177,7 +186,7 @@
     </div>
 
         <div class="mt-4">
-            {{ $clientes->links() }}    
+            {{ $staff->links() }}    
         </div>
 
 
@@ -231,12 +240,12 @@
         <!-- Modal body -->
         <div class="mt-4 mb-6 ">
           <!-- Modal title -->
-          <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-            Crear Cliente
-          </p>
-          <!-- Modal description -->
-          <form action="save" method="POST" class="max-w-md mx-auto">
-            @csrf
+         <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+        Nuevo Personal
+    </p>
+
+    <form action="{{ url('/personal/save') }}" method="POST" class="max-w-md mx-auto">
+        @csrf
 
             <div class="mt-2  text-sm">
               <span class="text-gray-700 dark:text-gray-400">
@@ -288,38 +297,33 @@
                   placeholder="Cualquier calle, ciudad, estado"
                 />
             </label>
-            <footer
-              class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800"
-            >
-              <button type="button"
-                @click="closeModal"
-                class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
-              >
-                Cancel
-              </button>
-              <button type="submit"
-                class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-              >
-                Accept
-              </button>
-            </footer>
-          </form>
-      </div>
-    </div>
-        
+            <label class="block mt-2 items-center  text-sm">
+              <span class="text-gray-700 dark:text-gray-400">Cargo</span>
+              <select name="cargo" id="cargo" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                <option value="" selected disabled>Seleccionar</option>
+                <option value="1">Produccion</option>
+                <option value="2">Direccion</option>
+                <option value="2">Logística & Equipo</option>
+                <option value="3">Guion y Desarrollo</option>
+                <option value="4">Fotografia y Camara</option>
+                <option value="4">Sonido</option>
+                <option value="4">Arte & Escenografía</option>
+                <option value="4">Iluminación y Eléctricos</option>
+                <option value="4">Postproducción</option>
+              </select>
+            </label>
 
+        <!-- Botones de acción -->
+        <footer class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+            <button @click="closeModal"
+                class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                Cancelar
+            </button>
+            <button type="submit"
+                class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                Guardar
+            </button>
+        </footer>
+    </form>
 
-
-
-
-
-
-
-
-
-
- 
-       
-
-
-    </x-app-layout>
+</x-app-layout>

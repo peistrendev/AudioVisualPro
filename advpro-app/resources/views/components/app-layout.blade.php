@@ -83,7 +83,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="{{ url('clientes/panel') }}"
+                href="{{ url('personal/panel') }}"
               >
                 <svg
                   class="w-5 h-5"
@@ -853,59 +853,63 @@
 
       </div>
     </div>
-
-          @if(session('alert'))
-          <script>
-              document.addEventListener('DOMContentLoaded', function() {
+      @if(session('alert') || session('swal') || session('success') || session('error') || $errors->any())
+      <script>
+          document.addEventListener('DOMContentLoaded', function() {
+              // Manejo de session('alert')
+              @if(session('alert'))
                   const alert = @json(session('alert'));
                   Swal.fire({
-                      icon: alert.type,
-                      title: alert.title,
-                      text: alert.message,
-                      confirmButtonText: alert.button,
-                      confirmButtonColor: '#3085d6'
+                      icon: alert.type || 'info',
+                      title: alert.title || 'Mensaje',
+                      text: alert.message || '',
+                      confirmButtonText: alert.button || 'Aceptar',
+                      confirmButtonColor: '#6C2BD9',
+                      timer: alert.timer || null,
+                      showConfirmButton: (alert.showConfirmButton !== false)
                   });
-              });
-          
-          @endif
-       
-            document.addEventListener('DOMContentLoaded', function() {
-                @if(session('swal'))
-                    Swal.fire(@json(session('swal')));
-                @endif
-            });
-       
-        document.addEventListener('DOMContentLoaded', function() {
-            // Para mensajes de éxito
-            @if(session('success'))
-                Swal.fire({
-                    icon: 'success',
-                    title: '{{ session('success') }}',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-            @endif
+              @endif
 
-            // Para mensajes de error
-            @if(session('error'))
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: '{{ session('error') }}',
-                    showConfirmButton: true
-                });
-            @endif
+              // Manejo de session('swal')
+              @if(session('swal'))
+                  Swal.fire(@json(session('swal')));
+              @endif
 
-            // Para errores de validación
-            @if($errors->any()))
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Errores de validación',
-                    html: `{!! implode('<br>', $errors->all()) !!}`,
-                    showConfirmButton: true
-                });
-            @endif
-        });
-    </script>
+              // Manejo de session('success')
+              @if(session('success'))
+                  Swal.fire({
+                      icon: 'success',
+                      title: '{{ session('success') }}',
+                      timer: 3000,
+                      showConfirmButton: false,
+                      toast: true,
+                      position: 'top-end'
+                  });
+              @endif
+
+              // Manejo de session('error')
+              @if(session('error'))
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text: '{{ session('error') }}',
+                      confirmButtonText: 'Aceptar',
+                      confirmButtonColor: '#d33'
+                  });
+              @endif
+
+              // Manejo de errores de validación
+              @if($errors->any())
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Errores de validación',
+                      html: `{!! implode('<br>', $errors->all()) !!}`,
+                      confirmButtonText: 'Entendido',
+                      confirmButtonColor: '#d33'
+                  });
+              @endif
+          });
+      </script>
+      @endif
   </body>
 </html>

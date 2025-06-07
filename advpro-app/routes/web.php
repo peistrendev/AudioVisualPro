@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ClienteController; // Ahora apunta al controlador e
 use App\Http\Controllers\Api\ContratoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Api\ProyectoController;
+use App\Http\Controllers\Api\PersonalController;
 use App\Http\Controllers\Api\EquipoController;
 
 // --- Rutas para Clientes (Usando `Api\ClienteController`) ---
@@ -31,6 +32,13 @@ Route::post('/proyectos/save', [ProyectoController::class, 'store']);
 Route::get('/proyectos/{proyecto}/edit', [ProyectoController::class, 'edit']);
 Route::put('/proyectos/{proyecto}', [ProyectoController::class, 'update']);
 Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy']);
+
+// --- Rutas para Personal ---
+Route::get('/personal/panel', [PersonalController::class, 'index']);
+Route::post('/personal/save', [PersonalController::class, 'store']);
+Route::get('/personal/{proyecto}/edit', [PersonalController::class, 'edit']);
+Route::put('/personal/{proyecto}', [PersonalController::class, 'update']);
+Route::delete('/personal/{proyecto}', [PersonalController::class, 'destroy']);
 
 // --- Rutas para Equipos ---
 Route::get('/equipos/panel', [EquipoController::class, 'index']);
