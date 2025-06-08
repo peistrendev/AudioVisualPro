@@ -36,9 +36,9 @@ Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy']);
 // --- Rutas para Personal ---
 Route::get('/personal/panel', [PersonalController::class, 'index']);
 Route::post('/personal/save', [PersonalController::class, 'store']);
-Route::get('/personal/{proyecto}/edit', [PersonalController::class, 'edit']);
-Route::put('/personal/{proyecto}', [PersonalController::class, 'update']);
-Route::delete('/personal/{proyecto}', [PersonalController::class, 'destroy']);
+Route::get('/personal/{staff}/edit', [PersonalController::class, 'edit']);
+Route::put('/personal/{staff}', [PersonalController::class, 'update']);
+Route::delete('/personal/{staff}', [PersonalController::class, 'destroy']);
 
 // --- Rutas para Equipos ---
 Route::get('/equipos/panel', [EquipoController::class, 'index']);

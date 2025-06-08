@@ -18,5 +18,6 @@ class staff extends Model
         'telefono',
         'direccion',
         'cargo',
+        'estado',
     ];
 }

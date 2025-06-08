@@ -39,14 +39,14 @@ class PersonalController extends Controller
 
         ]);
 
-        $cliente = Staff::create($validatedData);
+        $staff = Staff::create($validatedData);
 
         return $request->wantsJson()
-            ? response()->json(['message' => 'Cliente creado', 'data' => $cliente], 201)
-            : redirect('/clientes/panel')->with('alert', [
+            ? response()->json(['message' => 'Personal creado', 'data' => $staff], 201)
+            : redirect('/personal/panel')->with('alert', [
                 'type' => 'success',
                 'title' => '¡Éxito!',
-                'message' => 'Cliente creado correctamente',
+                'message' => 'Personal creado con ¡Éxito!',
                 'button' => 'Aceptar'
             ]);
 }
@@ -54,53 +54,58 @@ class PersonalController extends Controller
     /**
      * Mostrar un cliente específico (Web y API)
      */
-    public function show(Staff $cliente, Request $request)
+    public function show(Staff $staff, Request $request)
     {
         return $request->wantsJson()
-            ? response()->json($cliente, 200)
-            : view('clientes.show', compact('cliente'));
+            ? response()->json($staff, 200)
+            : view('personal.show', compact('staff'));
     }
 
     /**
      * Editar cliente (Web y API)
      */
-    public function edit(Staff $cliente, Request $request)
+    public function edit(Staff $staff, Request $request)
     {
         return $request->wantsJson()
-            ? response()->json($cliente, 200)
-            : view('clientes.edit', compact('cliente'));
+            ? response()->json($staff, 200)
+            : view('personal.edit', compact('staff'));
     }
 
     /**
      * Actualizar cliente (Web y API)
      */
-    public function update(Request $request, Staff $cliente)
+    public function update(Request $request, Staff $staff)
     {
         $validatedData = $request->validate([
-            'nombre' => 'sometimes|string|max:255',
+            'nombre' => 'required|string|max:255',
             'tipo_documento' => 'sometimes|string|max:50',
-            'documento' => 'sometimes|string|unique:clientes,documento,' . $cliente->id . '|max:20',
+            'documento' => 'sometimes|string|unique:clientes,documento,' . $staff->id . '|max:20',
             'email' => 'nullable|email|max:255',
             'telefono' => 'nullable|string|max:20',
             'direccion' => 'nullable|string|max:500',
+            'estado' => 'string|in:Activo,Desactivo',
+            'cargo' => 'required|string'
         ]);
 
-        $cliente->update($validatedData);
+        $staff->update($validatedData);
 
         return $request->wantsJson()
-            ? response()->json(['message' => 'Cliente actualizado', 'data' => $cliente], 200)
-            : redirect('/clientes/panel')->with('success', 'Cliente actualizado');
+            ? response()->json(['message' => 'Personal actualizado', 'data' => $staff], 200)
+            : redirect('/personal/panel')->with('success', 'Personal actualizado');
     }
 
     /**
      * Eliminar cliente (Web y API)
      */
-    public function destroy(Staff $cliente, Request $request)
+    public function destroy(Staff $staff, Request $request)
     {
-        $cliente->delete();
+        $message = ($staff->estado == 'Activo') ? 'Desactivo' : 'Activo';
+        $staff->update(['estado' => $message]);
+
+        $message = ($staff->estado == 'Activo') ? 'Personal activado' : 'Personal desactivado';
 
         return $request->wantsJson()
-            ? response()->json(['message' => 'Cliente eliminado'], 204)
-            : redirect('/clientes/panel')->with('success', 'Cliente eliminado');
+            ? response()->json(['message' => $message], 200)
+            : back()->with('success', $message); // Redirige a la página anterior
     }
 }

@@ -1,74 +1,95 @@
 <x-app-layout>
-    <form action="{{ url('equipos', ['equipo' => $equipo->id]) }}" method="POST">
+
+
+<div class="flex items-center justify-center p-4">
+  <div class=" max-w-md p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+    <div class="mb-6">
+    <form action="{{ url('personal', ['personal' => $staff->id]) }}" method="POST" >
         @csrf
         @method('PUT')
+      <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+        Modificar Empleado <span class="text-purple-600">{{$staff->nombre}}</span> 
+      </p>
+      
 
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-semibold text-gray-800">Editar Equipo</h1>
-            <a href="{{ url('equipos/panel') }}" class="text-sm text-gray-500 hover:text-gray-700">Volver</a>
+        <div class="mt-2 text-sm">
+          <span class="text-gray-700 dark:text-gray-400">
+            Documento de indentidad
+          </span>
+          <div>
+            <label class="inline-flex items-center text-sm">
+              <select name="tipo_documento" id="tipo_documento" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                <option value="{{$staff->tipo_documento}}" selected disabled>{{$staff->tipo_documento}}</option>
+                <option value="1">V</option>
+                <option value="2">J</option>
+                <option value="3">E</option>
+                <option value="4">G</option>
+              </select>
+            </label>
+            <label class="inline-flex items-center text-sm">
+              <input name="documento"
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                placeholder="Cedula/Rif"
+                value="{{$staff->documento}}"
+              />
+            </label>
+          </div>
         </div>
-
-        <div class="flex gap-x-6 mb-6">
-            <div class="w-full relative">
-                <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Nombre del equipo</label>
-                <input type="text" class="block w-full h-11 px-5 py-2.5 bg-white shadow-xs text-gray-900 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
-                    name="nombre" value="{{ $equipo->nombre }}" required>
-            </div>
-
-            <div class="w-full relative">
-                <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Marca</label>
-                <input type="text" class="block w-full h-11 px-5 py-2.5 bg-white shadow-xs text-gray-900 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
-                    name="marca" value="{{ $equipo->marca }}" required>
-            </div>
+        <label class="block mt-2 text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Nombre y Apellido</span>
+          <input name="nombre"
+            class="block mt-1 w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Juan Luis Guerra"
+            value="{{$staff->nombre}}"
+          />
+        </label>
+        <label class="block mt-2 text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Email</span>
+          <input type="email" name="email"
+            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            value="{{$staff->email}}"
+        </label>
+        <label class="block mt-2 text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Telefono</span>
+          <input type="text" name="telefono"
+            class="block mt-1 w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="0424-0426-0414-0416-0412"
+            value="{{$staff->telefono}}"
+          />
+        </label>
+        <label class="block mt-2 text-sm">
+          <span class="text-gray-700 dark:text-gray-400">Direccion</span>
+          <input type="text" name="direccion"
+            class="block mt-1 w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+            placeholder="Cualquier calle, ciudad, estado"
+            value="{{$staff->direccion}}"
+          />
+        </label>
+        <label class="block mt-2 items-center  text-sm">
+              <span class="text-gray-700 dark:text-gray-400">Cargo</span>
+              <select name="cargo" id="cargo" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                <option value="{{$staff->cargo}}" selected disabled>{{$staff->cargo}}</option>
+                <option value="Produccion">Produccion</option>
+                <option value="Direccion">Direccion</option>
+                <option value="Logística & Equipo">Logística & Equipo</option>
+                <option value="Guion y Desarrollo">Guion y Desarrollo</option>
+                <option value="Fotografia y Camara">Fotografia y Camara</option>
+                <option value="Sonido">Sonido</option>
+                <option value="Arte & Escenografía<">Arte & Escenografía</option>
+                <option value="Iluminación y Eléctricos">Iluminación y Eléctricos</option>
+                <option value="Postproducción">Postproducción</option>
+              </select>
+            </label>
+        <div class="flex items-center justify-end mt-6 space-x-4">
+          <a href="{{ url('personal/panel') }}" class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 hover:border-gray-500 focus:border-gray-500 focus:outline-none focus:shadow-outline-gray">
+            Volver
+          </a>
+          <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            Guardar
+          </button>
         </div>
-
-        <div class="flex gap-x-6 mb-6">
-            <div class="w-full relative">
-                <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Tipo de Equipo</label>
-                <select name="tipo_equipo" class="block w-full h-11 px-5 py-2.5 bg-white border border-gray-300 rounded-full focus:outline-none">
-                    <option value="{{ $equipo->tipo_equipo }}" selected>{{ $equipo->tipo_equipo }}</option>
-                    <option value="Fotografía">Fotografía</option>
-                    <option value="Video">Video</option>
-                    <option value="Sonido">Sonido</option>
-                    <option value="Iluminación">Iluminación</option>
-                </select>
-            </div>
-
-            <div class="w-full relative">
-                <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Estado</label>
-                <select name="estado" class="block w-full h-11 px-5 py-2.5 bg-white border border-gray-300 rounded-full focus:outline-none">
-                    <option value="{{ $equipo->estado }}" selected>{{ $equipo->estado }}</option>
-                    <option value="Nuevo">Nuevo</option>
-                    <option value="Usado">Usado</option>
-                    <option value="Reparado">Reparado</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="flex gap-x-6 mb-6">
-            <div class="w-full relative">
-                <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Ubicación</label>
-                <input type="text" class="block w-full h-11 px-5 py-2.5 bg-white shadow-xs text-gray-900 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
-                    name="ubicacion" value="{{ $equipo->ubicacion }}" required>
-            </div>
-
-            <div class="w-full relative">
-                <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Responsable</label>
-                <input type="text" class="block w-full h-11 px-5 py-2.5 bg-white shadow-xs text-gray-900 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
-                    name="responsable" value="{{ $equipo->responsable }}" required>
-            </div>
-        </div>
-
-        <div class="w-full relative">
-            <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Descripción</label>
-            <textarea name="descripcion"
-                class="block w-full h-20 px-5 py-2.5 bg-white border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none">{{ $equipo->descripcion }}</textarea>
-        </div>
-
-        <center>
-            <button class="w-52 h-12 shadow-sm rounded-full bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 text-white text-base font-semibold leading-7">
-                Guardar
-            </button>
-        </center>
     </form>
+    </div>
+  </div>
+</div>
 </x-app-layout>

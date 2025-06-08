@@ -52,13 +52,13 @@
                           {{$personal->direccion}}
                         </td>
                         <td class="px-4 py-3 text-sm break-words">
-                            <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-blue-100">
+                            <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                             {{$personal->cargo}}
                           </span>
                         </td>
                         <td class="px-4 py-3 text-sm">                
                             @if ($personal->estado == "Activo")
-                               <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:bg-orange-700 dark:text-orange-100">
+                               <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
                                   Activo
                                </span>
                             @else
@@ -68,14 +68,24 @@
                             @endif
                         </td>
                         <td class="px-4 py-3">
-                          <div class="flex items-center space-x-4 text-sm">
-                            <a href="{{$personal->id}}/edit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                              aria-label="Edit">
-                              <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                              </svg>
-                            </a>                            
-                          </div>
+                           <div class="flex items-center space-x- text-sm">
+                              <a href="{{$personal->id}}/edit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                aria-label="Edit">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                </svg>
+                              </a>
+                              <form action="{{$personal->id}}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete" title="desactivar">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 22 22">
+                                    <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                                  </svg>
+
+                                </button>
+                              </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -255,10 +265,10 @@
                 <label class="inline-flex items-center  text-sm">
                     <select name="tipo_documento" id="tipo_documento" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                       <option value="" selected disabled>-</option>
-                      <option value="1">V</option>
-                      <option value="2">J</option>
-                      <option value="3">E</option>
-                      <option value="4">G</option>
+                      <option value="V">V</option>
+                      <option value="J">J</option>
+                      <option value="E">E</option>
+                      <option value="G">G</option>
                     </select>
                 </label>
                 <label class="inline-flex items-center text-sm">
@@ -301,15 +311,15 @@
               <span class="text-gray-700 dark:text-gray-400">Cargo</span>
               <select name="cargo" id="cargo" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                 <option value="" selected disabled>Seleccionar</option>
-                <option value="1">Produccion</option>
-                <option value="2">Direccion</option>
-                <option value="2">Logística & Equipo</option>
-                <option value="3">Guion y Desarrollo</option>
-                <option value="4">Fotografia y Camara</option>
-                <option value="4">Sonido</option>
-                <option value="4">Arte & Escenografía</option>
-                <option value="4">Iluminación y Eléctricos</option>
-                <option value="4">Postproducción</option>
+                <option value="Produccion">Produccion</option>
+                <option value="Direccion">Direccion</option>
+                <option value="Logística & Equipo">Logística & Equipo</option>
+                <option value="Guion y Desarrollo">Guion y Desarrollo</option>
+                <option value="Fotografia y Camara">Fotografia y Camara</option>
+                <option value="Sonido">Sonido</option>
+                <option value="Arte & Escenografía">Arte & Escenografía</option>
+                <option value="Iluminación y Eléctricos">Iluminación y Eléctricos</option>
+                <option value="Postproducción">Postproducción</option>
               </select>
             </label>
 
