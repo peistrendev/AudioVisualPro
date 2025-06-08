@@ -200,7 +200,8 @@
         </div>
 
 
-    <div
+    <div 
+        
       x-show="isModalOpen"
       x-transition:enter="transition ease-out duration-150"
       x-transition:enter-start="opacity-0"
@@ -208,7 +209,7 @@
       x-transition:leave="transition ease-in duration-150"
       x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
-      class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+      class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center "
       >
       <!-- Modal -->
       <div
@@ -221,7 +222,7 @@
         x-transition:leave-end="opacity-0  transform translate-y-1/2"
         @click.away="closeModal"
         @keydown.escape="closeModal"
-        class="px-6 py-4  overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+        class="px-6 py-4  overflow-hidden  bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
         role="dialog"
         id="modal"
         >
