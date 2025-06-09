@@ -1,31 +1,14 @@
-
-
-
-
-
-
-
-
-
-
-
 <x-app-layout>
-
-  
-       
-            <h2 class="mb-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Proyectos</h2>
-            <div class="mb-4">
-              <button
-                @click="openModal"
-                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Nuevo Proyecto
-              </button>
-            </div>
-
-
-
-
+   
+    <h2 class="mb-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+    Proyectos</h2>
+    <div class="mb-4">
+        <button
+        @click="openModal"
+        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+        Nuevo Proyecto
+        </button>
+    </div>
 
     <div class="w-full rounded-lg shadow-xs overflow-x-auto lg:overflow-visible">
       <div class="w-full rounded-lg shadow-xs overflow-x-auto xl:overflow-visible">
@@ -46,53 +29,50 @@
           <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
             @foreach ($proyectos as $proyecto)
             <tr class="text-gray-700 dark:text-gray-400">
-              <td class="px-4 py-3">
+              <td class="px-4 py-3 break-words">
                 <div class="flex items-center text-sm">
                   <div>
-                    <p class="font-semibold truncate">{{$proyectos->nombre}}</p>
+                    <p class="font-semibold truncate">{{$proyecto->nombre}}</p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3 text-sm">
-                <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                  {{$proyectos->descripcion}}
-                </span>
+              <td class="px-4 py-3 text-sm break-words">
+      
+                  {{$proyecto->descripcion}}
               </td>
-                <td class="px-4 py-3 text-sm">
-                    <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-blue-100">
-                    {{$proyectos->cliente}}
-                    </span>
+                <td class="px-4 py-3 text-sm">                  
+                    {{$proyecto->cliente}}
                 </td>
               <td class="px-4 py-3 text-sm">
-                {{$proyectos->fecha_inicio}}
+                {{$proyecto->fecha_inicio}}
               </td>
               <td class="px-4 py-3 text-sm">
-                {{$proyectos->fecha_fin}}
+                {{$proyecto->fecha_fin}}
               </td>
               <td class="px-4 py-3 text-sm">
                 <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-purple-700 bg-purple-100 rounded-full dark:bg-purple-700 dark:text-purple-100">
-                  {{$proyectos->presupuesto}}
+                  {{$proyecto->presupuesto}}
                 </span>
               </td>
               <td class="px-4 py-3 text-sm">
-                <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-yellow-700 bg-yellow-100 rounded-full dark:bg-yellow-700 dark:text-yellow-100">
-                  {{$proyectos->estado}}
+                <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                  {{$proyecto->estado}}
                 </span>
               </td>
               <td class="px-4 py-3 text-sm">
                 <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-100">
-                  {{$proyectos->responsable}}
+                  {{$proyecto->responsable}}
                 </span>
               </td>
               <td class="px-4 py-3">
                 <div class="flex items-center space-x-4 text-sm">
-                  <a href="{{$client->id}}/edit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                  <a href="{{$proyecto->id}}/edit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                     aria-label="Edit">
                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
                     </svg>
                   </a>
-                  <form action="{{$client->id}}" method="POST" class="inline">
+                  <form action="{{$proyecto->id}}" method="POST" class="inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
@@ -335,7 +315,7 @@
               </select>
             </label>
             <label class="block mt-2 text-sm">
-              <span class="text-gray-700 dark:text-gray-400">Nombre del Proyecto</span>
+              <span class="text-gray-700 dark:text-gray-400">Lugar de Ejecucion</span>
               <input name="lugar"
                 class="block mt-1 w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                 placeholder="Ej: Hollywood, Los Angeles, California, USA" required

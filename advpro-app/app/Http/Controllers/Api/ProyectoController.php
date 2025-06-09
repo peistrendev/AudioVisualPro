@@ -37,7 +37,7 @@ class ProyectoController extends Controller
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'presupuesto' => 'nullable|numeric|min:0',
-            'estado' => 'required|string|in:activo,inactivo,completado,pendiente',
+            'estado' => 'required|string|in:En espera,En proceso,Realizado',
             'lugar' => 'nullable|string|max:255',
             'responsable' => 'nullable|string|max:255',
         ]);
