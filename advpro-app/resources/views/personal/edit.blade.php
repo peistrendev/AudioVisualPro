@@ -68,7 +68,7 @@
         <label class="block mt-2 items-center  text-sm">
               <span class="text-gray-700 dark:text-gray-400">Cargo</span>
               <select name="cargo" id="cargo" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                <option value="{{$staff->cargo}}" selected disabled>{{$staff->cargo}}</option>
+                <option value="{{$staff->cargo}}" selected>{{$staff->cargo}}</option>
                 <option value="Produccion">Produccion</option>
                 <option value="Direccion">Direccion</option>
                 <option value="Logística & Equipo">Logística & Equipo</option>

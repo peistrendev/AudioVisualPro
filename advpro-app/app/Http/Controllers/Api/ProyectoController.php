@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
 use App\Models\Cliente;
+use App\Models\Staff;
 
 class ProyectoController extends Controller
 {
@@ -16,10 +17,11 @@ class ProyectoController extends Controller
         {
             $proyectos = Proyecto::paginate(7);
             $clientes = Cliente::paginate(10);
+            $personal = staff::paginate(100);
         
             return $request->wantsJson()
-                ? response()->json(['proyectos' => $proyectos, 'clientes' => $clientes], 200)
-                : view('proyectos.panel', compact('proyectos', 'clientes')); // 🔹 Enviar ambos datos a la vista
+                ? response()->json(['proyectos' => $proyectos, 'clientes' => $clientes, 'personal'=>$personal], 200)
+                : view('proyectos.panel', compact('proyectos', 'clientes','personal')); // 🔹 Enviar ambos datos a la vista
         }
 
 

@@ -259,8 +259,7 @@
             <span class="text-gray-700 dark:text-gray-400">Descripción</span>
             <textarea name="descripcion"
                 class="block mt-1 w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-textarea"
-                placeholder="Ej: Cámara profesional de alta definición">
-            </textarea>
+                placeholder="Ej: Cámara profesional de alta definición"></textarea>
         </label>
 
         <!-- Marca -->
