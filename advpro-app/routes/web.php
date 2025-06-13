@@ -33,6 +33,7 @@ Route::get('/proyectos/{proyecto}/edit', [ProyectoController::class, 'edit']);
 Route::put('/proyectos/{proyecto}', [ProyectoController::class, 'update']);
 Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy']);
 
+
 // --- Rutas para Personal ---
 Route::get('/personal/panel', [PersonalController::class, 'index']);
 Route::post('/personal/save', [PersonalController::class, 'store']);

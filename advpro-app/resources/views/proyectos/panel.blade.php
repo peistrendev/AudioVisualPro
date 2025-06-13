@@ -2,13 +2,15 @@
    
     <h2 class="mb-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
     Proyectos</h2>
-    <div class="mb-4">
-        <button
+        <x-button>
+      <x-slot name="accion">
         @click="openModal"
-        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-        Nuevo Proyecto
-        </button>
-    </div>
+      </x-slot>
+      <x-slot name="type">
+        button
+      </x-slot>
+      Nuevo Proyecto
+    </x-button>
 
     <div class="w-full rounded-lg shadow-xs overflow-x-auto lg:overflow-visible">
       <div class="w-full rounded-lg shadow-xs overflow-x-auto xl:overflow-visible">

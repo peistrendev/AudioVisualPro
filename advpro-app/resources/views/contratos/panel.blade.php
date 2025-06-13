@@ -1,10 +1,14 @@
 <x-app-layout>
   <h6 class="font-bold text-xl mb-4">Contrato de Servicios</h6>
-  <div class="mb-4">
-    <button type="button" onclick="openModal()" class="w-40 h-10 shadow-sm rounded-full bg-indigo-600 hover:bg-indigo-800 transition-all duration-500 text-white text-base font-semibold leading-7">
-      Crear Contrato
-    </button>
-  </div>
+    <x-button>
+      <x-slot name="accion">
+        @click="openModal"
+      </x-slot>
+      <x-slot name="type">
+        button
+      </x-slot>
+      Nuevo Contrato
+    </x-button>
 
   <table class="min-w-full bg-white border border-gray-300">
     <thead class="bg-gray-200">
