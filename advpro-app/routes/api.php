@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ClienteController;
 use App\Http\Controllers\Api\ContratoController;
 use App\Http\Controllers\Api\ProyectoController;
-
+use App\Http\Controllers\Api\EquipoController; 
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,6 +43,17 @@ Route::post('/proyectos/save', [ProyectoController::class, 'store']);
 Route::get('/proyectos/{proyecto}/edit', [ProyectoController::class, 'edit']);
 Route::put('/proyectos/{proyecto}', [ProyectoController::class, 'update']);
 Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy']);
+
+// --- Rutas API para Equipos ---
+Route::get('/equipos/panel', [EquipoController::class, 'index']);
+Route::post('/equipos/save', [EquipoController::class, 'store']);
+Route::get('/equipos/{equipo}/edit', [EquipoController::class, 'edit']);
+Route::put('/equipos/{equipo}', [EquipoController::class, 'update']);
+Route::delete('/equipos/{equipo}', [EquipoController::class, 'destroy']);
+
+
+
+//Route::apiResource('equipos', EquipoController::class);
 
 // 🛡️ Opcional: Autenticación con Sanctum
 /*
