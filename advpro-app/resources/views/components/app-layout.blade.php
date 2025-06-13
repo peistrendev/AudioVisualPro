@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Windmill Dashboard</title>
+    <title>ADV PRO</title>
     <script src="{{asset('js/init-alpine.js')}}"></script>
     @vite(['resources/js/app.js'])
     <script src="{{asset('js/charts-lines.js')}}" defer></script>
