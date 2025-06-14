@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('nombre');
             $table->string('descripcion');
-            $table->string('cliente');
             $table->string('fecha_inicio');
             $table->string('fecha_fin');
             $table->string('presupuesto');
             $table->string('estado');
             $table->string('lugar');
-            $table->string('responsable');
+            $table->unsignedBigInteger('responsable')->nullable();
             $table->timestamps();
+            $table->foreign('responsable')->references('id')->on('staff')->onDelete('cascade');
         });
     }
 

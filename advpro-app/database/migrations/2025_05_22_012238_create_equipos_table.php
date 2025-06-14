@@ -12,14 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('equipos', function (Blueprint $table) {
-            $table->id()->autoIncrement();
+            $table->id()->autoIncrement()->unique;
             $table->string('nombre');
             $table->string('descripcion');
-            $table->string('marca');
-            $table->string('tipo_equipo');
-            $table->string('estado');
-            $table->string('ubicacion');
-            $table->string('responsable');
+            $table->string('stock');
+            $table->string('precio');
             $table->timestamps();
         });
     }
