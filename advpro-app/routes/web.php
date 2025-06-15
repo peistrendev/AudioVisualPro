@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ClienteController; // Ahora apunta al controlador en la carpeta API
 use App\Http\Controllers\Api\ContratoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\ProyectoController;
 use App\Http\Controllers\Api\PersonalController;
 use App\Http\Controllers\Api\EquipoController;
@@ -49,8 +50,8 @@ Route::put('/equipos/{equipo}', [EquipoController::class, 'update']);
 Route::delete('/equipos/{equipo}', [EquipoController::class, 'destroy']);
 
 // --- Rutas para login y registro ---
-Route::view('/login', 'login.login')->name('login');
-Route::view('/register', 'login.register')->name('register');
+Route::get('/login', [AuthController::class, 'showLogin']);
+Route::get('/register', [AuthController::class, 'showRegister']);
 
 Route::get('/welcome', function () {
     return view('welcome');

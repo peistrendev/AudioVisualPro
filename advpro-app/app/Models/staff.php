@@ -20,4 +20,8 @@ class staff extends Model
         'cargo',
         'estado',
     ];
+    public function proyectos()
+    {
+        return $this->hasMany(Proyecto::class);
+    }
 }
