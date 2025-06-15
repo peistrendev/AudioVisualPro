@@ -25,7 +25,7 @@ class Proyecto extends Model
 
     // Opcional: Si 'cliente' es una clave foránea a la tabla 'clientes', puedes definir la relación
     // public function cliente()
-     {
-         return $this->belongsTo(Clientes::class, 'cliente'); // Asumiendo 'cliente' es el foreign key
-     }
+    // {
+    //     return $this->belongsTo(Clientes::class, 'cliente'); // Asumiendo 'cliente' es el foreign key
+    // }
 }
