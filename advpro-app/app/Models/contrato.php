@@ -15,13 +15,9 @@ class Contrato extends Model
     protected $fillable = [
         'id_cliente',
         'id_proyecto',
-        'id_responsable',
         'fecha_contrato',
-        'tipo_contrato',
-        'tiempo_contrato',
+        'costo',
         'estado',
-        'observaciones',
-        'documento'
     ];
 
     protected $casts = [
@@ -32,16 +28,12 @@ class Contrato extends Model
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'id_cliente');
+        return $this->belongsTo(Cliente::class);
     }
 
     public function proyecto()
     {
-        return $this->belongsTo(Proyecto::class, 'id_proyecto');
+        return $this->belongsTo(Proyecto::class);
     }
 
-    public function responsable()
-    {
-        return $this->belongsTo(User::class, 'id_responsable'); // Ajusta el modelo si es diferente
-    }
 }

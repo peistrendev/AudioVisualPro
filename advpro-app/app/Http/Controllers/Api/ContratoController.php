@@ -14,6 +14,7 @@ class ContratoController extends Controller
      */
     public function index(Request $request)
     {
+        
         $contratos = Contrato::with('cliente')->paginate(10);
         $clientes = Cliente::all(); // Opcional, si necesitas mostrar los clientes relacionados
 
