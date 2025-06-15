@@ -14,16 +14,18 @@ class Proyecto extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'cliente', // Asumiendo que 'cliente' es una columna directa que guarda el ID o nombre del cliente
         'fecha_inicio',
         'fecha_fin',
         'presupuesto',
         'estado',
         'lugar',
-        'responsable', //llave foranea a la tabla 'staff'
+        'responsable',
     ];
 
-    public function staff()
+    // Opcional: Si 'cliente' es una clave foránea a la tabla 'clientes', puedes definir la relación
+    // public function cliente()
      {
-         return $this->belongsTo(staff::class); // Asumiendo 'responsable' es el foreign key
+         return $this->belongsTo(Clientes::class, 'cliente'); // Asumiendo 'cliente' es el foreign key
      }
 }
