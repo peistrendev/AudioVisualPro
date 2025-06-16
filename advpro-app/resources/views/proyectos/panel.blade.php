@@ -19,7 +19,6 @@
             <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
               <th class="px-4 py-3 w-1/6">Nombre</th>
               <th class="px-4 py-3 w-1/6">Descripción</th>
-              <th class="px-4 py-3 w-1/6">Cliente</th>
               <th class="px-4 py-3 w-1/6">Fecha Inicio</th>
               <th class="px-4 py-3 w-1/6">Fecha Fin</th>
               <th class="px-4 py-3 w-1/6">Presupuesto</th>
@@ -42,9 +41,6 @@
       
                   {{$proyecto->descripcion}}
               </td>
-                <td class="px-4 py-3 text-sm">                  
-                    {{$proyecto->cliente}}
-                </td>
               <td class="px-4 py-3 text-sm">
                 {{$proyecto->fecha_inicio}}
               </td>
@@ -63,7 +59,7 @@
               </td>
               <td class="px-4 py-3 text-sm">
                 <span class="inline-block max-w-full truncate px-2 py-1 font-semibold leading-tight text-gray-700 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-100">
-                  {{$proyecto->responsable}}
+                  {{$proyecto->staff->nombre}}
                 </span>
               </td>
               <td class="px-4 py-3">
@@ -86,6 +82,7 @@
                 </div>
               </td>
             </tr>
+
             @endforeach
           </tbody>
         </table>

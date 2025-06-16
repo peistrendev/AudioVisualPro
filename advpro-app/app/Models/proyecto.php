@@ -24,6 +24,6 @@ class Proyecto extends Model
 
     public function staff()
      {
-         return $this->belongsTo(staff::class); // Asumiendo 'responsable' es el foreign key
+         return $this->belongsTo(staff::class,'id');
      }
 }

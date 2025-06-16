@@ -11,6 +11,7 @@ class staff extends Model
 
     // Agrega la propiedad $fillable
     protected $fillable = [
+        
         'nombre',
         'tipo_documento',
         'documento',
@@ -22,6 +23,6 @@ class staff extends Model
     ];
     public function proyectos()
     {
-        return $this->hasMany(Proyecto::class);
+        return $this->hasMany(Proyecto::class, 'responsable'); // Asumiendo 'responsable' es el foreign key en la tabla 'proyectos'
     }
 }

@@ -32,13 +32,12 @@ class ProyectoController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'cliente' => 'required|exists:clientes,id',
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'presupuesto' => 'nullable|numeric|min:0',
             'estado' => 'required|string|in:En espera,En proceso,Realizado',
             'lugar' => 'nullable|string|max:255',
-            'responsable' => 'nullable|string|max:255',
+            'responsable' => 'required|numeric',
         ]);
 
         $proyecto = Proyecto::create($validatedData);
