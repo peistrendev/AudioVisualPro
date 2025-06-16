@@ -21,7 +21,8 @@ class Proyecto extends Model
         'estado',
         'lugar',
         'responsable',
-    ];
+    ]; 
+    //aaaaaaaaaaaaaa
 
     // Opcional: Si 'cliente' es una clave foránea a la tabla 'clientes', puedes definir la relación
     // public function cliente()
