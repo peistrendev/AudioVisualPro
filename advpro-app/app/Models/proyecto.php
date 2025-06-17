@@ -19,12 +19,11 @@ class Proyecto extends Model
         'presupuesto',
         'estado',
         'lugar',
-        'responsable',
+        'responsable', //llave foranea a la tabla 'staff'
     ];
 
-    // Opcional: Si 'cliente' es una clave foránea a la tabla 'clientes', puedes definir la relación
-    // public function cliente()
-    // {
-    //     return $this->belongsTo(Clientes::class, 'cliente'); // Asumiendo 'cliente' es el foreign key
-    // }
+    public function staff()
+     {
+         return $this->belongsTo(staff::class); // Asumiendo 'responsable' es el foreign key
+     }
 }
