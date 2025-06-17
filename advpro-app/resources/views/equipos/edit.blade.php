@@ -52,10 +52,18 @@
                     name="ubicacion" value="{{ $equipo->ubicacion }}" required>
             </div>
 
-            <div class="w-full relative">
-                <label class="flex items-center mb-2 text-gray-600 text-sm font-medium">Responsable</label>
-                <input type="text" class="block w-full h-11 px-5 py-2.5 bg-white shadow-xs text-gray-900 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
-                    name="responsable" value="{{ $equipo->responsable }}" required>
+            <div class="w-full relative mb-6">
+            <label class="block mt-2 mb-2 items-center  text-sm">
+              <span class="text-gray-700 dark:text-gray-400">Responsable</span>
+              <select name="responsable" id="cargo" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                <option value="" selected disabled>Seleccionar</option>
+                @foreach ($personal as $staff)
+                    <option value="{{ $staff->id }}" >
+                       {{$staff->nombre}}
+                    </option>
+                @endforeach
+              </select>
+            </label>
             </div>
         </div>
 
