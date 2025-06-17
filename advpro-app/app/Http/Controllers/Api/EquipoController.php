@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Equipo;
+use App\Models\Staff; // Asegúrate de importar el modelo Staff
 
 class EquipoController extends Controller
 {
@@ -13,11 +14,16 @@ class EquipoController extends Controller
      */
     public function index(Request $request)
     {
-        $equipos = Equipo::paginate(10);
+        // Carga la relación 'personal' (staff) si necesitas mostrar el nombre del responsable
+        $equipos = Equipo::with('personal')->paginate(10);
+
+        // Obtener la lista de personal para el dropdown en la vista (si hay un formulario de creación/edición en esta vista)
+        $personal = Staff::all(['id', 'nombre']); // <-- AGREGADO: Obtén los datos del Staff aquí
 
         return $request->wantsJson()
             ? response()->json($equipos, 200)
-            : view('equipos.panel', compact('equipos'));
+            // <-- MODIFICADO: Ahora pasamos $personal a la vista
+            : view('equipos.panel', compact('equipos', 'personal'));
     }
 
     /**
@@ -32,7 +38,7 @@ class EquipoController extends Controller
             'tipo_equipo' => 'required|string|max:255',
             'estado' => 'required|string|in:Nuevo,Usado,Reparado',
             'ubicacion' => 'required|string|max:255',
-            'responsable' => 'required|string|max:255',
+            'responsable' => 'nullable|exists:staff,id',
         ]);
 
         $equipo = Equipo::create($validatedData);
@@ -47,6 +53,8 @@ class EquipoController extends Controller
      */
     public function show(Equipo $equipo, Request $request)
     {
+        // Carga la relación 'personal' (staff) si necesitas mostrar el nombre del responsable
+        $equipo->load('personal');
         return $request->wantsJson()
             ? response()->json($equipo, 200)
             : view('equipos.show', compact('equipo'));
@@ -56,11 +64,18 @@ class EquipoController extends Controller
      * Editar equipo (Web y API)
      */
     public function edit(Equipo $equipo, Request $request)
-{
-    return $request->wantsJson()
-        ? response()->json($equipo, 200)
-        : view('equipos.edit', compact('equipo'));
-}
+    {
+        
+        $equipo->load('personal');
+
+       
+        $personal = Staff::all(['id', 'nombre']);
+
+        return $request->wantsJson()
+            ? response()->json($equipo, 200)
+            
+            : view('equipos.edit', compact('equipo', 'personal'));
+    }
 
     /**
      * Actualizar equipo (Web y API)
@@ -69,12 +84,12 @@ class EquipoController extends Controller
     {
         $validatedData = $request->validate([
             'nombre' => 'sometimes|string|max:255',
-            'descripcion' => 'sometimes|string',
+            'descripcion' => 'nullable|string',
             'marca' => 'sometimes|string|max:255',
             'tipo_equipo' => 'sometimes|string|max:255',
             'estado' => 'sometimes|string|in:Nuevo,Usado,Reparado',
             'ubicacion' => 'sometimes|string|max:255',
-            'responsable' => 'sometimes|string|max:255',
+            'responsable' => 'nullable|exists:staff,id',
         ]);
 
         $equipo->update($validatedData);
