@@ -1,6 +1,6 @@
-<x-app-layout>
+<x-layouts.app>
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-    Dashboard</h2>
-
-   
-</x-app-layout>      
+        Dashboard
+    </h2>
+    {{-- Todo el contenido de tu dashboard va aquí --}}
+</x-layouts.app>   
