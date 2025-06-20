@@ -11,9 +11,10 @@
         </div>
 
         <x-table :headers="['Nombre', 'Descripción', 'Cliente', 'Estado', 'Inicio', 'Fin', 'Presupuesto', 'Lugar', 'Responsable', 'Opciones']">
-            @forelse ($proyectos as $project)
+           @forelse ($proyectos as $project)
                 @include('components.proyectos.table-row', ['item' => $project, 'route_prefix' => 'proyectos'])
             @empty
+
                 <tr class="text-gray-700 dark:text-gray-400">
                     <td class="px-4 py-3 text-center" colspan="10">No hay proyectos para mostrar.</td>
                 </tr>

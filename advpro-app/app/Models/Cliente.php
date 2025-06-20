@@ -25,7 +25,7 @@ class Cliente extends Model
 
     public function proyectos()
     {
-
-        return $this->hasMany(Proyecto::class, 'cliente');
+        return $this->hasMany(Proyecto::class);
     }
+
 }
