@@ -14,15 +14,17 @@ class ProyectoController extends Controller
      * Mostrar todos los proyectos (Web y API)
      */
     public function index(Request $request)
-        {
-            $proyectos = Proyecto::paginate(7);
-            $personal = staff::all();
-        
-            return $request->wantsJson()
-                ? response()->json(['proyectos' => $proyectos, 'personal'=>$personal], 200)
-                : view('proyectos.panel', compact('proyectos','personal')); // 🔹 Enviar ambos datos a la vista
-        }
+    {
+        $clientes = Cliente::all();
+        $personal = Staff::all();
 
+        // 🔹 CAMBIO AQUÍ: Usamos 'cliente' en lugar de 'clienteRelation' para eager loading
+        $proyectos = Proyecto::with('cliente')->paginate(7);
+
+        return $request->wantsJson()
+            ? response()->json(['proyectos' => $proyectos, 'clientes' => $clientes, 'personal' => $personal], 200)
+            : view('proyectos.panel', compact('proyectos', 'clientes', 'personal'));
+    }
 
     /**
      * Crear un nuevo proyecto (Web y API)
@@ -32,7 +34,7 @@ class ProyectoController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'cliente' => 'required|exists:clientes,id',
+            'cliente' => 'required|exists:clientes,id', // Debe ser un ID válido de la tabla clientes
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'presupuesto' => 'nullable|numeric|min:0',
@@ -45,7 +47,12 @@ class ProyectoController extends Controller
 
         return $request->wantsJson()
             ? response()->json(['message' => 'Proyecto creado', 'data' => $proyecto], 201)
-            : redirect('/proyectos/panel')->with('success', 'Proyecto creado');
+            : redirect()->route('proyectos.index')->with('alert', [
+                'type' => 'success',
+                'title' => '¡Éxito!',
+                'message' => 'Proyecto creado correctamente.',
+                'button' => 'Aceptar'
+            ]);
     }
 
     /**
@@ -59,13 +66,17 @@ class ProyectoController extends Controller
     }
 
     /**
-     * Editar un proyecto (Web y API)
+     * Muestra el formulario para editar un proyecto específico.
+     * Necesita clientes y personal para poblar los selects.
      */
     public function edit(Proyecto $proyecto, Request $request)
     {
+        $clientes = Cliente::all();
+        $personal = Staff::all();
+
         return $request->wantsJson()
             ? response()->json($proyecto, 200)
-            : view('proyectos.edit', compact('proyecto'));
+            : view('proyectos.edit', compact('proyecto', 'clientes', 'personal'));
     }
 
     /**
@@ -80,7 +91,7 @@ class ProyectoController extends Controller
             'fecha_inicio' => 'sometimes|date',
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'presupuesto' => 'nullable|numeric|min:0',
-            'estado' => 'sometimes|string|in:activo,inactivo,completado,pendiente',
+            'estado' => 'sometimes|string|in:En espera,En proceso,Realizado',
             'lugar' => 'nullable|string|max:255',
             'responsable' => 'nullable|string|max:255',
         ]);
@@ -89,7 +100,12 @@ class ProyectoController extends Controller
 
         return $request->wantsJson()
             ? response()->json(['message' => 'Proyecto actualizado', 'data' => $proyecto], 200)
-            : redirect('/proyectos/panel')->with('success', 'Proyecto actualizado');
+            : redirect()->route('proyectos.index')->with('alert', [
+                'type' => 'success',
+                'title' => '¡Éxito!',
+                'message' => 'Proyecto actualizado correctamente.',
+                'button' => 'Aceptar'
+            ]);
     }
 
     /**
@@ -101,6 +117,11 @@ class ProyectoController extends Controller
 
         return $request->wantsJson()
             ? response()->json(['message' => 'Proyecto eliminado'], 204)
-            : redirect('/proyectos/panel')->with('success', 'Proyecto eliminado');
+            : redirect()->route('proyectos.index')->with('alert', [
+                'type' => 'success',
+                'title' => '¡Éxito!',
+                'message' => 'Proyecto eliminado correctamente.',
+                'button' => 'Aceptar'
+            ]);
     }
 }

@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ClienteController;
 use App\Http\Controllers\Api\ContratoController;
 use App\Http\Controllers\Api\ProyectoController;
-use App\Http\Controllers\Api\EquipoController; 
+use App\Http\Controllers\Api\EquipoController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,43 +24,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// --- Rutas API para Clientes ---
-Route::get('/clientes/panel', [ClienteController::class, 'index']); // Vista y JSON
-Route::post('/clientes/save', [ClienteController::class, 'store']);
-Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit']);
-Route::put('/clientes/{cliente}', [ClienteController::class, 'update']);
-Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy']);
+// --- Rutas API Resource ---
+// Estas rutas generarán los endpoints RESTful estándar (index, store, show, update, destroy)
+// para cada recurso. No incluirán 'create' ni 'edit' por defecto.
 
-// --- Rutas API para Contratos ---
-Route::get('/contratos/panel', [ContratoController::class, 'index']);
-Route::post('/contratos/save', [ContratoController::class, 'store']);
-Route::get('/contratos/{contrato}/edit', [ContratoController::class, 'edit']);
-Route::put('/contratos/{contrato}', [ContratoController::class, 'update']);
-Route::delete('/contratos/{contrato}', [ContratoController::class, 'destroy']);
+Route::apiResource('clientes', ClienteController::class);
+Route::apiResource('contratos', ContratoController::class);
+Route::apiResource('proyectos', ProyectoController::class);
+Route::apiResource('equipos', EquipoController::class);
 
-// --- Rutas API para Proyectos ---
-Route::get('/proyectos/panel', [ProyectoController::class, 'index']);
-Route::post('/proyectos/save', [ProyectoController::class, 'store']);
-Route::get('/proyectos/{proyecto}/edit', [ProyectoController::class, 'edit']);
-Route::put('/proyectos/{proyecto}', [ProyectoController::class, 'update']);
-Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy']);
-
-// --- Rutas API para Equipos ---
-Route::get('/equipos/panel', [EquipoController::class, 'index']);
-Route::post('/equipos/save', [EquipoController::class, 'store']);
-Route::get('/equipos/{equipo}/edit', [EquipoController::class, 'edit']);
-Route::put('/equipos/{equipo}', [EquipoController::class, 'update']);
-Route::delete('/equipos/{equipo}', [EquipoController::class, 'destroy']);
-
-
-
-//Route::apiResource('equipos', EquipoController::class);
-
-// 🛡️ Opcional: Autenticación con Sanctum
+// 🛡️ Opcional: Agrupar rutas bajo autenticación Sanctum si toda la API la requiere
 /*
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('clientes', ClienteController::class);
     Route::apiResource('contratos', ContratoController::class);
     Route::apiResource('proyectos', ProyectoController::class);
+    Route::apiResource('equipos', EquipoController::class);
 });
 */
