@@ -1,31 +1,35 @@
 <?php
 
-// app/Models/Proyecto.php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Cliente; // ¡Importa el modelo Cliente!
+use App\Models\Staff; // También necesitarás el modelo Staff si lo usas para 'responsable' o en otras relaciones
 
 class Proyecto extends Model
 {
     protected $table = 'proyectos';
 
-    // Agrega la propiedad $fillable con todas las columnas que pueden ser asignadas masivamente
     protected $fillable = [
         'nombre',
         'descripcion',
-        'cliente', // Asumiendo que 'cliente' es una columna directa que guarda el ID o nombre del cliente
+        'cliente_id',
         'fecha_inicio',
         'fecha_fin',
         'presupuesto',
         'estado',
         'lugar',
-        'responsable',
+        'responsable_id',
     ];
+    
+        public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
 
-    // Opcional: Si 'cliente' es una clave foránea a la tabla 'clientes', puedes definir la relación
-    // public function cliente()
-    // {
-    //     return $this->belongsTo(Clientes::class, 'cliente'); // Asumiendo 'cliente' es el foreign key
-    // }
+    public function responsable()
+    {
+        return $this->belongsTo(Staff::class);
+    }
+
 }
