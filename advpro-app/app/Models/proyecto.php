@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Cliente; // ¡Importa el modelo Cliente!
-use App\Models\Staff; // También necesitarás el modelo Staff si lo usas para 'responsable' o en otras relaciones
+use App\Models\Cliente; 
+use App\Models\Staff; 
 
 class Proyecto extends Model
 {
