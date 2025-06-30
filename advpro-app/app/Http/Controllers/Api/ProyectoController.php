@@ -10,15 +10,12 @@ use App\Models\Staff;
 
 class ProyectoController extends Controller
 {
-    /**
-     * Mostrar todos los proyectos (Web y API)
-     */
+
     public function index(Request $request)
     {
         $clientes = Cliente::all();
         $personal = Staff::all();
-
-        // 🔹 CAMBIO AQUÍ: Usamos 'cliente' en lugar de 'clienteRelation' para eager loading
+     
         $proyectos = Proyecto::with(['cliente', 'responsable'])->paginate(7);
 
 
@@ -33,7 +30,7 @@ class ProyectoController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'cliente_id' => 'required|exists:clientes,id', // Debe ser un ID válido de la tabla clientes
+            'cliente_id' => 'required|exists:clientes,id', 
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'presupuesto' => 'nullable|numeric|min:0',
@@ -55,9 +52,7 @@ class ProyectoController extends Controller
             ]);
     }
 
-    /**
-     * Mostrar un proyecto específico (Web y API)
-     */
+
     public function show(Proyecto $proyecto, Request $request)
     {
         return $request->wantsJson()
@@ -103,9 +98,6 @@ class ProyectoController extends Controller
             ]);
     }
 
-    /**
-     * Eliminar un proyecto (Web y API)
-     */
     public function destroy(Proyecto $proyecto, Request $request)
     {
         $proyecto->delete();
