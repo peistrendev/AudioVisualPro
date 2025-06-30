@@ -19,15 +19,18 @@
 <div class="flex gap-x-6 mb-6">
     <label class="block w-full relative">
         <span class="flex items-center mb-2 text-gray-600 text-sm font-medium dark:text-gray-400">Cliente</span>
-        <select name="cliente" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full focus:outline-none dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 dark:text-gray-300 dark:focus:shadow-outline-gray form-select" required>
-            <option value="" disabled selected>Seleccione un cliente</option>
+        <select name="cliente"
+            class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full focus:outline-none dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 dark:text-gray-300 dark:focus:shadow-outline-gray form-select"
+            required>
+            <option value="" disabled {{ old('cliente') ? '' : 'selected' }}>Seleccione un cliente</option>
             @foreach ($clientes as $cliente)
                 <option value="{{ $cliente->id }}" {{ old('cliente') == $cliente->id ? 'selected' : '' }}>
-                    {{ $cliente->nombre }}
+                    {{ $cliente->nombre }} — {{ $cliente->documento }}
                 </option>
             @endforeach
         </select>
     </label>
+
     <label class="block w-full relative">
         <span class="flex items-center mb-2 text-gray-600 text-sm font-medium dark:text-gray-400">Fecha de Inicio</span>
         <input type="date" name="fecha_inicio"
@@ -73,14 +76,15 @@
     </label>
 </div>
 
-<div class="w-full relative mb-6">
-    <label class="block relative">
+    <label class="block w-full relative">
         <span class="flex items-center mb-2 text-gray-600 text-sm font-medium dark:text-gray-400">Responsable</span>
-        <select name="responsable" class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full focus:outline-none dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 dark:text-gray-300 dark:focus:shadow-outline-gray form-select" required>
-            <option value="" disabled selected>Seleccione un responsable</option>
-            @foreach ($personal as $person) {{-- Asumiendo que 'personal' es la colección de usuarios/empleados --}}
-                <option value="{{ $person->nombre }}" {{ old('responsable') == $person->nombre ? 'selected' : '' }}>
-                    {{ $person->nombre }}
+        <select name="responsable"
+            class="block w-full h-11 px-5 py-2.5 border border-gray-300 rounded-full focus:outline-none dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 dark:text-gray-300 dark:focus:shadow-outline-gray form-select"
+            required>
+            <option value="" disabled {{ old('responsable') ? '' : 'selected' }}>Seleccione un responsable</option>
+            @foreach ($personal as $person)
+                <option value="{{ $person->id }}" {{ old('responsable') == $person->id ? 'selected' : '' }}>
+                    {{ $person->nombre }} — {{ $person->documento }}
                 </option>
             @endforeach
         </select>
