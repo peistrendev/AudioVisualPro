@@ -8,14 +8,10 @@ use App\Http\Controllers\AuthController; // Ensure this is correctly imported
 use App\Http\Controllers\Api\ProyectoController;
 use App\Http\Controllers\Api\PersonalController;
 use App\Http\Controllers\Api\EquipoController;
-<<<<<<< HEAD
-use App\Http\Controllers\LoginController;
-=======
 use App\Http\Controllers\HomeController; // Added this use statement for clarity, though Auth::routes() manages it.
 
 // IMPORTANT: This line defines ALL standard authentication routes (login, register, logout, password reset, and a default /home route).
 Auth::routes();
->>>>>>> origin/RaulDev
 
 // API Resource Routes
 Route::resource('clientes', ClienteController::class);
