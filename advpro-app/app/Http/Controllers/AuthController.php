@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User; // Make sure this is correctly imported (your User model)
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException; // Import for validation errors
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -35,23 +35,20 @@ class AuthController extends Controller
         ]);
 
         // 2. Attempt to authenticate the user
-        // The second argument $request->boolean('remember') handles the "remember me" functionality
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            $request->session()->regenerate(); // Regenerate the session ID for security
+            $request->session()->regenerate();
 
-            // If it's an AJAX request (e.g., from JavaScript fetch), return JSON
             if ($request->wantsJson()) {
                 return response()->json(['message' => 'Login successful', 'user' => Auth::user()]);
             }
 
-            // Redirect to the intended URL or the dashboard after successful login
-            return redirect()->intended('/inicio/dashboard')->with('success', 'You have logged in!');
+            // Redirige al nombre de ruta 'home' (tu dashboard)
+            return redirect()->route('home')->with('success', 'You have logged in!');
         }
 
         // 3. If authentication fails, throw a validation exception
-        // This will redirect back to the form with an error message
         throw ValidationException::withMessages([
-            'email' => [trans('auth.failed')], // Laravel's default authentication failed message
+            'email' => [trans('auth.failed')],
         ]);
     }
 
@@ -73,29 +70,28 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        // 1. Validate the incoming data
+        // 1. Validate the incoming request data
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'], // 'confirmed' checks for 'password_confirmation' field
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         // 2. Create the user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password), // Hash the password before saving
+            'password' => Hash::make($request->password),
         ]);
 
-        // 3. Log the user in immediately after registration (optional, but common)
-        Auth::login($user);
+        // 3. Log the user in (optional, but common after registration)
+        // Si quieres loguearlos inmediatamente y enviarlos directamente al dashboard,
+        // DESCOMENTA las siguientes dos líneas y asegúrate de que usen 'home'.
+        // Auth::login($user);
+        // return redirect()->route('home'); // <--- CAMBIO AQUÍ si lo usas
 
-        // 4. Return appropriate response (JSON for API, redirect for web)
-        if ($request->wantsJson()) {
-            return response()->json(['message' => 'Registration successful', 'user' => $user], 201);
-        }
-
-        return redirect('/inicio/dashboard')->with('success', 'Registration successful and you are logged in!');
+        // 4. Redirect to the login page after successful registration
+        return redirect()->route('login')->with('status', '¡Cuenta creada exitosamente! Por favor inicia sesión.');
     }
 
     /**
@@ -106,16 +102,15 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout(); // Log the user out
+        Auth::logout();
 
-        $request->session()->invalidate(); // Invalidate the current session
-        $request->session()->regenerateToken(); // Regenerate the CSRF token
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        // Return JSON for API requests, redirect for web requests
         if ($request->wantsJson()) {
             return response()->json(['message' => 'Logged out successfully']);
         }
 
-        return redirect('/')->with('success', 'You have been logged out!'); // Redirect to your home page or login page
+        return redirect('/')->with('success', 'You have been logged out!');
     }
 }
