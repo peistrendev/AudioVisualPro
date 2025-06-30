@@ -1,95 +1,110 @@
-{{-- resources/views/components/personal/create-form-fields.blade.php --}}
+<x-layouts.app>
+    <form action="{{ route('contratos.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-<div class="max-w-md mx-auto">
-    <label class="block mt-2 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">Nombre</span>
-        <input name="nombre"
-            class="block mt-1 w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            placeholder="Ej: Ana Rodríguez"
-            value="{{ old('nombre') }}"
-            required
-        />
-    </label>
+        <div class="max-w-xl mx-auto">
 
-    <div class="mt-2 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">Documento de identidad</span>
-        <div>
-            <label class="inline-flex items-center text-sm">
-                <select name="tipo_documento" id="tipo_documento_create"
-                    class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                    <option value="" {{ !old('tipo_documento') ? 'selected' : '' }} disabled>- Seleccione -</option>
-                    <option value="V" {{ old('tipo_documento') == 'V' ? 'selected' : '' }}>V</option>
-                    <option value="J" {{ old('tipo_documento') == 'J' ? 'selected' : '' }}>J</option>
-                    <option value="E" {{ old('tipo_documento') == 'E' ? 'selected' : '' }}>E</option>
-                    <option value="P" {{ old('tipo_documento') == 'P' ? 'selected' : '' }}>P</option>
+            {{-- Cliente --}}
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Cliente</span>
+                <select name="id_cliente" class="block w-full mt-1 text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 form-select">
+                    <option value="" disabled selected>Seleccionar cliente</option>
+                    @foreach($clientes as $cliente)
+                        <option value="{{ $cliente->id }}" {{ old('id_cliente') == $cliente->id ? 'selected' : '' }}>
+                            {{ $cliente->nombre }}
+                        </option>
+                    @endforeach
                 </select>
             </label>
+
+            {{-- Proyecto --}}
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Proyecto</span>
+                <select name="id_proyecto" class="block w-full mt-1 text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 form-select">
+                    <option value="" disabled selected>Seleccionar proyecto</option>
+                    @foreach($proyectos as $proyecto)
+                        <option value="{{ $proyecto->id }}" {{ old('id_proyecto') == $proyecto->id ? 'selected' : '' }}>
+                            {{ $proyecto->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            </label>
+
+            {{-- Responsable --}}
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Responsable (Staff)</span>
+                <select name="id_responsable" class="block w-full mt-1 text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 form-select">
+                    <option value="" disabled selected>Seleccionar responsable</option>
+                    @foreach($staff as $persona)
+                        <option value="{{ $persona->id }}" {{ old('id_responsable') == $persona->id ? 'selected' : '' }}>
+                            {{ $persona->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            </label>
+
+            {{-- Fecha --}}
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Fecha de Contrato</span>
+                <input type="date" name="fecha_contrato" value="{{ old('fecha_contrato') }}"
+                    class="block w-full mt-1 text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 form-input">
+            </label>
+
+            {{-- Tipo --}}
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Tipo de Contrato</span>
+                <input name="tipo_contrato" value="{{ old('tipo_contrato') }}"
+                    placeholder="Ej: Prestación de servicios"
+                    class="block w-full mt-1 text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 form-input">
+            </label>
+
+            {{-- Duración --}}
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Duración / Tiempo</span>
+                <input name="tiempo_contrato" value="{{ old('tiempo_contrato') }}"
+                    placeholder="Ej: 6 meses, 1 año"
+                    class="block w-full mt-1 text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 form-input">
+            </label>
+
+            {{-- Estado --}}
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Estado</span>
+                @php
+                    $estados = ['activo', 'inactivo', 'finalizado', 'pendiente'];
+                @endphp
+                <select name="estado" class="block w-full mt-1 text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 form-select">
+                    <option value="" disabled selected>Seleccionar estado</option>
+                    @foreach ($estados as $estado)
+                        <option value="{{ $estado }}" {{ old('estado') == $estado ? 'selected' : '' }}>
+                            {{ ucfirst($estado) }}
+                        </option>
+                    @endforeach
+                </select>
+            </label>
+
+            {{-- Observaciones --}}
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Observaciones</span>
+                <textarea name="observaciones"
+                    placeholder="Notas adicionales"
+                    class="block w-full mt-1 text-sm dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 form-textarea"
+                >{{ old('observaciones') }}</textarea>
+            </label>
+
+            {{-- Documento --}}
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Documento (PDF/DOC)</span>
+                <input type="file" name="documento"
+                    class="block mt-1 w-full text-sm text-white dark:bg-gray-700 dark:border-gray-600 form-input">
+            </label>
+
+            {{-- Botón --}}
+            <div class="flex justify-center mt-6">
+                <button type="submit"
+                    class="px-6 py-3 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-800 transition-all duration-300">
+                    Guardar Contrato
+                </button>
+            </div>
         </div>
-    </div>
-
-    <label class="block mt-2 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">Número de Documento</span>
-        <input type="text" name="documento"
-            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            placeholder="Ej: 12345678"
-            value="{{ old('documento') }}"
-            required
-        />
-        @error('documento')
-            <p class="text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
-        @enderror
-    </label>
-
-    <label class="block mt-2 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">Email</span>
-        <input type="email" name="email"
-            class="block mt-1 w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            placeholder="Ej: ana.rodriguez@example.com"
-            value="{{ old('email') }}"
-        />
-    </label>
-
-    <label class="block mt-2 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">Teléfono</span>
-        <input type="text" name="telefono"
-            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            placeholder="Ej: 0412-9876543"
-            value="{{ old('telefono') }}"
-        />
-    </label>
-
-    <label class="block mt-2 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">Dirección</span>
-        <input type="text" name="direccion"
-            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            placeholder="Ej: Av. Principal, Edificio X, Apt. 1A"
-            value="{{ old('direccion') }}"
-        />
-    </label>
-
-    <label class="block mt-2 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">Cargo</span>
-        <select name="cargo" id="cargo_create"
-            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-            <option value="" {{ !old('cargo') ? 'selected' : '' }} disabled>- Seleccione -</option>
-            <option value="Producción" {{ old('cargo') == 'Producción' ? 'selected' : '' }}>Producción</option>
-            <option value="Dirección" {{ old('cargo') == 'Dirección' ? 'selected' : '' }}>Dirección</option>
-            <option value="Logística & Equipo" {{ old('cargo') == 'Logística & Equipo' ? 'selected' : '' }}>Logística & Equipo</option>
-            <option value="Guion y Desarrollo" {{ old('cargo') == 'Guion y Desarrollo' ? 'selected' : '' }}>Guion y Desarrollo</option>
-            <option value="Fotografía y Cámara" {{ old('cargo') == 'Fotografía y Cámara' ? 'selected' : '' }}>Fotografía y Cámara</option>
-            <option value="Sonido" {{ old('cargo') == 'Sonido' ? 'selected' : '' }}>Sonido</option>
-            <option value="Arte & Escenografía" {{ old('cargo') == 'Arte & Escenografía' ? 'selected' : '' }}>Arte & Escenografía</option>
-            <option value="Iluminación y Eléctricos" {{ old('cargo') == 'Iluminación y Eléctricos' ? 'selected' : '' }}>Iluminación y Eléctricos</option>
-            <option value="Postproducción" {{ old('cargo') == 'Postproducción' ? 'selected' : '' }}>Postproducción</option>
-        </select>
-    </label>
-
-    <label class="block mt-2 text-sm">
-        <span class="text-gray-700 dark:text-gray-400">Estado</span>
-        <select name="estado" id="estado_create"
-            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-            <option value="Activo" {{ old('estado', 'Activo') == 'Activo' ? 'selected' : '' }}>Activo</option>
-            <option value="Inactivo" {{ old('estado') == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
-        </select>
-    </label>
-</div>
+    </form>
+</x-layouts.app>
