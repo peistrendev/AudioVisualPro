@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\ProyectoController;
 use App\Http\Controllers\Api\PersonalController;
 use App\Http\Controllers\Api\EquipoController;
-
+use App\Http\Controllers\LoginController;
 
 Route::resource('clientes', ClienteController::class);
 
