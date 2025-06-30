@@ -3,12 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Windmill Dashboard</title>
+    <title>Login - Tu Aplicación</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    
     @vite(['resources/css/tailwind.output.css'])
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
@@ -43,33 +42,77 @@
               >
                 Login
               </h1>
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Email</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="Jane Doe"
-                />
-              </label>
-              <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Password</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="***************"
-                  type="password"
-                />
-              </label>
 
-              <!-- You should use a button here, as the anchor is only used for the example  -->
-              <a
-                class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                href="../index.html"
-              >
-                Entrar
-              </a>
+              {{-- FORMULARIO DE LOGIN --}}
+              <form method="POST" action="{{ route('login') }}">
+                @csrf {{-- ¡IMPORTANTE! Directiva CSRF para seguridad --}}
+
+                {{-- Display validation errors --}}
+                @if ($errors->any())
+                    <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">Email</span>
+                  <input
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="usuario@ejemplo.com"
+                    type="email" {{-- IMPORTANT: Changed type to email --}}
+                    name="email" {{-- IMPORTANT: Added name attribute --}}
+                    value="{{ old('email') }}" {{-- Retain old input value --}}
+                    required autofocus {{-- Added required and autofocus --}}
+                  />
+                  @error('email') {{-- Display specific error for 'email' --}}
+                    <span class="text-xs text-red-600 dark:text-red-400">{{ $message }}</span>
+                  @enderror
+                </label>
+
+                <label class="block mt-4 text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">Contraseña</span>
+                  <input
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="***************"
+                    type="password"
+                    name="password" {{-- IMPORTANT: Added name attribute --}}
+                    required
+                  />
+                  @error('password') {{-- Display specific error for 'password' --}}
+                    <span class="text-xs text-red-600 dark:text-red-400">{{ $message }}</span>
+                  @enderror
+                </label>
+
+                {{-- Optional: "Remember Me" checkbox --}}
+                <div class="flex mt-6 text-sm">
+                  <label class="flex items-center dark:text-gray-400">
+                    <input
+                      type="checkbox"
+                      class="text-purple-600 form-checkbox focus:outline-none focus:shadow-outline-purple"
+                      name="remember" {{-- IMPORTANT: Name for remember me --}}
+                    />
+                    <span class="ml-2">Recordarme</span>
+                  </label>
+                </div>
+
+                {{-- Changed <a> to <button type="submit"> --}}
+                <button
+                  type="submit"
+                  class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                >
+                  Entrar
+                </button>
+
+              </form> {{-- Close the form tag --}}
 
               <hr class="my-8" />
 
-              <button
+              {{-- You might remove these social login buttons if not using --}}
+              {{-- <button
                 class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
               >
                 <svg
@@ -98,12 +141,12 @@
                   />
                 </svg>
                 Twitter
-              </button>
+              </button> --}}
 
               <p class="mt-4">
                 <a
                   class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                  href="{{ url('/register') }}"
+                  href="{{ route('password.request') }}" {{-- You'll need to implement this route later --}}
                 >
                   ¿Olvidaste tu contraseña?
                 </a>
@@ -111,7 +154,7 @@
               <p class="mt-1">
                 <a
                   class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                  href="{{ url('/register') }}"
+                  href="{{ route('register') }}" {{-- Use named route for consistency --}}
                 >
                   Crear cuenta
                 </a>
