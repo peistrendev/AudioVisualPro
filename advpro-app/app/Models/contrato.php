@@ -9,15 +9,15 @@ class Contrato extends Model
 {
     use HasFactory;
 
-    protected $table = 'contratos'; // Nombre de la tabla en la BD
-    protected $primaryKey = 'id'; // Llave primaria
+    protected $table = 'contratos';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'id_cliente',
         'id_proyecto',
         'fecha_contrato',
         'costo',
-        'estado',
+        'estado'
     ];
 
     protected $casts = [
@@ -28,12 +28,12 @@ class Contrato extends Model
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class, 'id_cliente');
     }
 
     public function proyecto()
     {
-        return $this->belongsTo(Proyecto::class);
+        return $this->belongsTo(Proyecto::class, 'id_proyecto');
     }
-
 }
+

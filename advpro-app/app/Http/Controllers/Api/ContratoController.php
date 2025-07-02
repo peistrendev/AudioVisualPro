@@ -3,101 +3,105 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Contrato;
 use App\Models\Cliente;
+use App\Models\Proyecto;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ContratoController extends Controller
 {
-    /**
-     * Mostrar todos los contratos (Web y API)
-     */
     public function index(Request $request)
     {
-        
-        $contratos = Contrato::with('cliente')->paginate(10);
-        $clientes = Cliente::all(); // Opcional, si necesitas mostrar los clientes relacionados
+        $contratos = Contrato::with(['cliente', 'proyecto'])->paginate(10);
+        $clientes = Cliente::all();
+        $proyectos = Proyecto::all();
 
         return $request->wantsJson()
             ? response()->json($contratos, 200)
-            : view('contratos.panel', compact('contratos', 'clientes'));
+            : view('contratos.panel', compact('contratos', 'clientes', 'proyectos'));
     }
 
-    /**
-     * Crear un nuevo contrato (Web y API)
-     */
+    public function create()
+    {
+        $clientes = Cliente::all();
+        $proyectos = Proyecto::all();
+
+        return view('contratos.create', compact('clientes', 'proyectos'));
+    }
+
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nombre_contrato' => 'required|string|max:255',
-            'cliente_id' => 'required|exists:clientes,id',
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
-            'monto' => 'required|numeric|min:0',
-            'estado' => 'required|string|in:activo,inactivo,finalizado,cancelado,pendiente',
-            'descripcion' => 'nullable|string|max:1000',
+        $validated = $request->validate([
+            'id_cliente' => 'required|exists:clientes,id',
+            'id_proyecto' => 'required|exists:proyectos,id',
+            'fecha_contrato' => 'required|date',
+            'estado' => 'required|string|in:activo,inactivo,finalizado,pendiente',
+            'costo' => 'required|numeric|min:0',
         ]);
 
-        $contrato = Contrato::create($validatedData);
+        if ($request->hasFile('documento')) {
+            $validated['documento'] = $request->file('documento')->store('documentos');
+        }
+
+        $contrato = Contrato::create($validated);
 
         return $request->wantsJson()
             ? response()->json(['message' => 'Contrato creado', 'data' => $contrato], 201)
-            : redirect('/contratos/panel')->with('success', 'Contrato creado');
+            : redirect()->route('contratos.index')->with('success', 'Contrato creado correctamente');
     }
 
-    /**
-     * Mostrar un contrato específico (Web y API)
-     */
     public function show(Contrato $contrato, Request $request)
     {
-        $contrato->load('cliente');
+        $contrato->load(['cliente', 'proyecto']);
 
         return $request->wantsJson()
             ? response()->json($contrato, 200)
             : view('contratos.show', compact('contrato'));
     }
 
-    /**
-     * Editar un contrato (Web y API)
-     */
-    public function edit(Contrato $contrato, Request $request)
+    public function edit(Contrato $contrato)
     {
-        return $request->wantsJson()
-            ? response()->json($contrato, 200)
-            : view('contratos.edit', compact('contrato'));
+        $clientes = Cliente::all();
+        $proyectos = Proyecto::all();
+
+        return view('contratos.edit', compact('contrato', 'clientes', 'proyectos'));
     }
 
-    /**
-     * Actualizar un contrato (Web y API)
-     */
     public function update(Request $request, Contrato $contrato)
     {
-        $validatedData = $request->validate([
-            'nombre_contrato' => 'sometimes|string|max:255',
-            'cliente_id' => 'sometimes|required|exists:clientes,id',
-            'fecha_inicio' => 'sometimes|date',
-            'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
-            'monto' => 'sometimes|numeric|min:0',
-            'estado' => 'sometimes|string|in:activo,inactivo,finalizado,cancelado,pendiente',
-            'descripcion' => 'nullable|string|max:1000',
+        $validated = $request->validate([
+            'id_cliente' => 'sometimes|required|exists:clientes,id',
+            'id_proyecto' => 'sometimes|required|exists:proyectos,id',
+            'fecha_contrato' => 'sometimes|date', 
+            'estado' => 'sometimes|string|in:activo,inactivo,finalizado,pendiente',
+            'costo' => 'sometimes|required|numeric|min:0',
         ]);
 
-        $contrato->update($validatedData);
+        if ($request->hasFile('documento')) {
+            if ($contrato->documento) {
+                Storage::delete($contrato->documento);
+            }
+            $validated['documento'] = $request->file('documento')->store('documentos');
+        }
+
+        $contrato->update($validated);
 
         return $request->wantsJson()
             ? response()->json(['message' => 'Contrato actualizado', 'data' => $contrato], 200)
-            : redirect('/contratos/panel')->with('success', 'Contrato actualizado');
+            : redirect()->route('contratos.index')->with('success', 'Contrato actualizado correctamente');
     }
 
-    /**
-     * Eliminar un contrato (Web y API)
-     */
     public function destroy(Contrato $contrato, Request $request)
     {
+        if ($contrato->documento) {
+            Storage::delete($contrato->documento);
+        }
+
         $contrato->delete();
 
         return $request->wantsJson()
             ? response()->json(['message' => 'Contrato eliminado'], 204)
-            : redirect('/contratos/panel')->with('success', 'Contrato eliminado');
+            : redirect()->route('contratos.index')->with('success', 'Contrato eliminado correctamente');
     }
 }

@@ -4,31 +4,86 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Staff; // Asegúrate de que esta línea use 'Staff' con 'S' mayúscula
+use App\Models\Staff;
+use Barryvdh\DomPDF\Facade\Pdf; 
 
 class PersonalController extends Controller
 {
     /**
-     * Mostrar todos los miembros del personal (Web y API)
+     * Muestra todos los miembros del personal con filtros y paginación.
      */
     public function index(Request $request)
     {
-        $staff = Staff::paginate(10); // Asegúrate de usar 'Staff' con 'S' mayúscula aquí
+        $query = Staff::query();
 
+        // --- Aplicar Filtros ---
+        // 1. Filtro por Nombre o Documento
+        if ($request->filled('nombre_documento')) {
+            $searchTerm = $request->input('nombre_documento');
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nombre', 'LIKE', '%' . $searchTerm . '%')
+                  ->orWhere('documento', 'LIKE', '%' . $searchTerm . '%');
+            });
+        }
+
+        // 2. Filtro por Cargo
+        if ($request->filled('cargo')) {
+            $query->where('cargo', $request->input('cargo'));
+        }
+
+        // 3. Filtro por Estado
+        if ($request->filled('estado')) {
+            $query->where('estado', $request->input('estado'));
+        }
+
+        // Obtener resultados con paginación
+        $staff = $query->paginate(10);
+
+        // Retorna JSON para API o la vista para la web
         return $request->wantsJson()
             ? response()->json($staff, 200)
             : view('personal.panel', compact('staff'));
     }
 
     /**
-     * Mostrar el formulario para crear un nuevo miembro del personal (Web)
-     * Este método se usaría si tuvieras una vista 'personal.create', pero como usas modal,
-     * la lógica de datos ya se pasa al panel.
+     * Genera un reporte PDF del personal filtrado.
+     */
+    public function exportarPdf(Request $request)
+    {
+        $query = Staff::query();
+
+        // --- Aplicar la misma lógica de filtros que en el index ---
+        if ($request->filled('nombre_documento')) {
+            $searchTerm = $request->input('nombre_documento');
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nombre', 'LIKE', '%' . $searchTerm . '%')
+                  ->orWhere('documento', 'LIKE', '%' . $searchTerm . '%');
+            });
+        }
+        if ($request->filled('cargo')) {
+            $query->where('cargo', $request->input('cargo'));
+        }
+        if ($request->filled('estado')) {
+            $query->where('estado', $request->input('estado'));
+        }
+
+        // Obtener todos los resultados filtrados, no paginados
+        $filteredStaff = $query->get();
+
+        // Generar el PDF usando una vista Blade (por ejemplo, 'personal.reporte_pdf')
+        $pdf = Pdf::loadView('personal.reporte_pdf', ['staff' => $filteredStaff]);
+
+        // Retorna el PDF para su descarga
+        return $pdf->download('reporte_personal_' . now()->format('Y-m-d') . '.pdf');
+    }
+
+    /**
+     * Muestra el formulario para crear un nuevo miembro del personal (Web)
      */
     public function create()
     {
         // No se requiere lógica compleja aquí ya que el formulario es un modal en el panel
-        return view('personal.create'); // Si tienes una vista específica para crear, si no, puedes eliminar este método si solo usas el modal en el panel.
+        return view('personal.create'); // Si tienes una vista específica para crear
     }
 
     /**
@@ -39,11 +94,11 @@ class PersonalController extends Controller
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'tipo_documento' => 'required|string|max:50',
-            'documento' => 'required|string|unique:staff,documento|max:20', // Cambiado 'clientes' a 'staff'
+            'documento' => 'required|string|unique:staff,documento|max:20',
             'email' => 'nullable|email|max:255',
             'telefono' => 'nullable|string|max:20',
             'direccion' => 'nullable|string|max:500',
-            'estado' => 'required|string|in:Activo,Inactivo', // 'Desactivo' cambiado a 'Inactivo' para consistencia o si quieres 2 estados
+            'estado' => 'required|string|in:Activo,Inactivo',
             'cargo' => 'required|string',
         ]);
 
@@ -62,7 +117,7 @@ class PersonalController extends Controller
     /**
      * Muestra un miembro del personal específico (Web y API)
      */
-    public function show(Staff $personal, Request $request) // Cambiado $staff a $personal para coincidir con la variable de ruta
+    public function show(Staff $personal, Request $request)
     {
         return $request->wantsJson()
             ? response()->json($personal, 200)
@@ -72,24 +127,24 @@ class PersonalController extends Controller
     /**
      * Muestra el formulario para editar un miembro del personal (Web)
      */
-    public function edit(Staff $personal) // Cambiado $staff a $personal
+    public function edit(Staff $personal)
     {
-        return view('personal.edit', compact('personal')); // Pasa la variable $personal a la vista
+        return view('personal.edit', compact('personal'));
     }
 
     /**
      * Actualiza un miembro del personal específico (Web y API)
      */
-    public function update(Request $request, Staff $personal) // Cambiado $staff a $personal
+    public function update(Request $request, Staff $personal)
     {
         $validatedData = $request->validate([
             'nombre' => 'sometimes|string|max:255',
             'tipo_documento' => 'sometimes|string|max:50',
-            'documento' => 'sometimes|string|unique:staff,documento,' . $personal->id . '|max:20', // Cambiado 'clientes' a 'staff'
+            'documento' => 'sometimes|string|unique:staff,documento,' . $personal->id . '|max:20',
             'email' => 'nullable|email|max:255',
             'telefono' => 'nullable|string|max:20',
             'direccion' => 'nullable|string|max:500',
-            'estado' => 'sometimes|string|in:Activo,Inactivo', // 'Desactivo' cambiado a 'Inactivo'
+            'estado' => 'sometimes|string|in:Activo,Inactivo',
             'cargo' => 'sometimes|string',
         ]);
 
@@ -108,7 +163,7 @@ class PersonalController extends Controller
     /**
      * Cambia el estado de un miembro del personal (Eliminación lógica / Activación/Desactivación) (Web y API)
      */
-    public function destroy(Staff $personal, Request $request) // Cambiado $staff a $personal
+    public function destroy(Staff $personal, Request $request)
     {
         // Alternar el estado entre Activo y Inactivo
         $newState = ($personal->estado == 'Activo') ? 'Inactivo' : 'Activo';
@@ -117,7 +172,7 @@ class PersonalController extends Controller
         $message = ($newState == 'Activo') ? 'Personal activado' : 'Personal desactivado';
 
         return $request->wantsJson()
-            ? response()->json(['message' => $message], 200) // Cambiado 204 a 200 porque 204 es No Content y no debería llevar body
+            ? response()->json(['message' => $message], 200)
             : redirect()->route('personal.index')->with('alert', [
                 'type' => 'success',
                 'title' => '¡Estado cambiado!',

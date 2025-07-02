@@ -4,12 +4,13 @@
     <div class="mb-6">
       <div class="flex justify-between items-center mb-6">
         <p class="text-2xl font-semibold text-gray-800 dark:text-gray-300">Editar Proyecto</p>
-        <a href="{{ url('proyectos/panel') }}" class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+        {{-- Enlace "Volver" actualizado para usar route('proyectos.index') --}}
+        <a href="{{ route('proyectos.index') }}" class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
           Volver
         </a>
       </div>
 
-      <form action="{{ url('proyectos', ['proyecto' => $proyecto->id]) }}" method="POST">
+      <form action="{{ route('proyectos.update', ['proyecto' => $proyecto->id]) }}" method="POST">
         @csrf
         @method('PUT')
 

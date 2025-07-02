@@ -1,22 +1,104 @@
-<x-layouts.app> 
+<x-layouts.app>
 
     <h2 class="mb-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Equipos
     </h2>
-
     
     <div x-data="{ isModalOpen: false, openModal() { this.isModalOpen = true }, closeModal() { this.isModalOpen = false } }">
 
-        {{-- El botón para abrir el modal --}}
-        <div class="mb-4"> 
-           
+        {{-- Contenedor de Botones y Filtros --}}
+        <div class="flex items-end justify-between mb-6">
+            
+            {{-- Botón "Nuevo Equipo" (Usando tu componente <x-button>) --}}
             <x-button @click="openModal" type="button">
                 Nuevo Equipo
             </x-button>
-        </div>
 
-        {{-- La tabla de equipos --}}
-        <x-table :headers="['Nombre', 'Descripción', 'Marca', 'Tipo de Equipo', 'Estado', 'Ubicación', 'Responsable', 'Acciones']">
+            {{-- Formulario de Filtros con la estética de tus campos de formulario --}}
+            <form action="{{ route('equipos.index') }}" method="GET" class="flex items-end space-x-4">
+                
+                {{-- Filtro por Estado (Altura ajustada para que el contenido no se corte) --}}
+                <div class="flex flex-col items-start">
+                    <label for="estado_filtro" class="text-xs font-bold text-gray-400 dark:text-gray-400 mb-1 uppercase">Estado</label>
+                    <select name="estado" id="estado_filtro"
+                        class="block w-40 h-9 px-4 py-2 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray rounded-lg border-2 border-gray-700 shadow-inner"
+                    >
+                        <option value="">Todos</option>
+                        <option value="Nuevo" {{ request('estado') == 'Nuevo' ? 'selected' : '' }}>Nuevo</option>
+                        <option value="Usado" {{ request('estado') == 'Usado' ? 'selected' : '' }}>Usado</option>
+                        <option value="Reparado" {{ request('estado') == 'Reparado' ? 'selected' : '' }}>Reparado</option>
+                    </select>
+                </div>
+                
+                {{-- Filtro por Fecha de Creación (Altura ajustada para que el contenido no se corte) --}}
+                <div class="flex flex-col items-start">
+                    <label for="fecha_creacion_filtro" class="text-xs font-bold text-gray-400 dark:text-gray-400 mb-1 uppercase">Fecha de Creación</label>
+                    <select name="fecha_creacion" id="fecha_creacion_filtro"
+                        class="block w-40 h-9 px-4 py-2 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray rounded-lg border-2 border-gray-700 shadow-inner"
+                    >
+                        <option value="">Sin ordenar</option>
+                        <option value="nuevos" {{ request('fecha_creacion') == 'nuevos' ? 'selected' : '' }}>Más Nuevos</option>
+                        <option value="viejos" {{ request('fecha_creacion') == 'viejos' ? 'selected' : '' }}>Más Viejos</option>
+                    </select>
+                </div>
+
+                {{-- Filtro por Tipo de Equipo (Altura ajustada para que el contenido no se corte) --}}
+                <div class="flex flex-col items-start">
+                    <label for="tipo_equipo_filtro" class="text-xs font-bold text-gray-400 dark:text-gray-400 mb-1 uppercase">Tipo de Equipo</label>
+                    <select name="tipo_equipo" id="tipo_equipo_filtro"
+                        class="block w-40 h-9 px-4 py-2 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray rounded-lg border-2 border-gray-700 shadow-inner"
+                    >
+                        <option value="">Todos</option>
+                        <option value="Fotografía" {{ request('tipo_equipo') == 'Fotografía' ? 'selected' : '' }}>Fotografía</option>
+                        <option value="Video" {{ request('tipo_equipo') == 'Video' ? 'selected' : '' }}>Video</option>
+                        <option value="Sonido" {{ request('tipo_equipo') == 'Sonido' ? 'selected' : '' }}>Sonido</option>
+                        <option value="Iluminación" {{ request('tipo_equipo') == 'Iluminación' ? 'selected' : '' }}>Iluminación</option>
+                    </select>
+                </div>
+                
+                {{-- FILTRO POR RESPONSABLE (con truncado) --}}
+                <div class="flex flex-col items-start">
+                    <label for="responsable_filtro" class="text-xs font-bold text-gray-400 dark:text-gray-400 mb-1 uppercase">Responsable</label>
+                    <select name="responsable" id="responsable_filtro"
+                        class="block w-40 h-9 px-4 py-2 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray rounded-lg border-2 border-gray-700 shadow-inner"
+                    >
+                        <option value="">Todos</option>
+                        @foreach ($personal as $persona)
+                            <option value="{{ $persona->id }}" 
+                                {{ request('responsable') == $persona->id ? 'selected' : '' }}
+                                class="truncate" {{-- Agregamos la clase truncate aquí --}}
+                            >
+                                {{ $persona->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                {{-- FIN DEL FILTRO --}}
+
+                {{-- Botón para Aplicar Filtros (sin cambios) --}}
+                <button type="submit"
+                    class="h-10 px-5 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple flex items-center justify-center gap-2"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                    Filtrar
+                </button>
+            </form>
+
+            {{-- Botón "Generar Reporte" (sin cambios) --}}
+            <a href="{{ route('equipos.reporte', request()->query()) }}" target="_blank"
+                class="h-10 px-5 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple flex items-center justify-center gap-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                </svg>
+                Generar Reporte
+            </a>
+        </div>
+        
+        {{-- La tabla de equipos (usando tu componente <x-table>) --}}
+        <x-table :headers="['Nombre', 'Descripción', 'Marca', 'Tipo de Equipo', 'Estado', 'Ubicación', 'Responsable','valor', 'Acciones']">
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 @forelse ($equipos as $equipo)
                     @include('components.equipos.table-row', ['item' => $equipo, 'route_prefix' => 'equipos'])
@@ -33,7 +115,7 @@
             {{ $equipos->links() }}
         </div>
 
-
+        {{-- Modal para crear equipo (usando tu componente <x-create-modal>) --}}
         <x-create-modal
             modal_title="Crear Equipo"
             form_action="{{ route('equipos.store') }}"

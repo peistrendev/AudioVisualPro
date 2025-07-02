@@ -33,4 +33,9 @@ class Staff extends Model // ¡Asegúrate de que sea 'Staff' con 'S' mayúscula!
     {
         return $this->hasMany(Equipo::class, 'responsable', 'id'); // Asumiendo 'responsable' es FK en equipos
     }
+
+    public function contratos()
+{
+    return $this->hasMany(Contrato::class, 'id_responsable');
+}
 }

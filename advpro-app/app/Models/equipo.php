@@ -20,7 +20,8 @@ class Equipo extends Model
         'tipo_equipo',
         'estado',
         'ubicacion',
-        'responsable', // Añadido
+        'responsable',
+        'valor',
     ];
 
     /**

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api; // Mantener el namespace si es donde reside el controlador
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cliente; // Asegúrate de que tu modelo Cliente exista
+use App\Models\Cliente; 
 
 class ClienteController extends Controller
 {
@@ -14,14 +15,54 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
-        $clientes = Cliente::paginate(2); // Esto es correcto para la paginación
+        $query = Cliente::query();
 
-        // Laravel resource routes esperan que 'index' se mapee a /clientes
+        // 1. Filtro por Tipo de Documento
+        if ($request->filled('tipo_documento_filtro') && in_array($request->tipo_documento_filtro, ['V', 'J', 'E', 'G'])) {
+            $query->where('tipo_documento', $request->tipo_documento_filtro);
+        }
+
+        // 2. Filtro de búsqueda (por nombre o documento)
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('nombre', 'like', '%' . $search . '%')
+                  ->orWhere('documento', 'like', '%' . $search . '%');
+            });
+        }
+
+        $clientes = $query->paginate(10)->appends($request->query());
+
         return $request->wantsJson()
             ? response()->json($clientes, 200)
-            // Si la vista para el listado de clientes es 'clientes.panel', la usamos aquí.
-            // La URL esperada por resource es '/clientes'
             : view('clientes.panel', compact('clientes'));
+    }
+
+    /**
+     * Genera un reporte PDF de los clientes filtrados.
+     */
+    public function generarReporte(Request $request)
+    {
+        $query = Cliente::query();
+
+        // Aplicar los mismos filtros que en la vista
+        if ($request->filled('tipo_documento_filtro') && in_array($request->tipo_documento_filtro, ['V', 'J', 'E', 'G'])) {
+            $query->where('tipo_documento', $request->tipo_documento_filtro);
+        }
+        
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('nombre', 'like', '%' . $search . '%')
+                  ->orWhere('documento', 'like', '%' . $search . '%');
+            });
+        }
+
+        $clientes_para_reporte = $query->get();
+
+        $pdf = Pdf::loadView('clientes.reporte_pdf', compact('clientes_para_reporte'));
+        
+        return $pdf->download('reporte_clientes_' . date('Y-m-d') . '.pdf');
     }
 
     /**

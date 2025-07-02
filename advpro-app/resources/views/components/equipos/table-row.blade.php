@@ -24,6 +24,9 @@
     <td class="px-4 py-3 text-sm truncate">
         {{ $item->personal?->nombre }} {{-- Acceso seguro al nombre del responsable --}}
     </td>
+    <td class="px-4 py-3 text-sm truncate">
+        ${{ $item->valor }} {{-- Acceso seguro al nombre del responsable --}}
+    </td>
     <td class="px-4 py-3">
         <div class="flex items-center space-x-4 text-sm">
             <a href="{{ route($route_prefix . '.edit', $item->id) }}"

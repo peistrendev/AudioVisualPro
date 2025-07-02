@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class estado_contrato extends Model
+class Estado_contrato extends Model
 {
     //
 }
